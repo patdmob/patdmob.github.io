@@ -3,7 +3,9 @@ categories:
 - book review
 - product management
 - business
-date: '2022-03-02'
+- non-fiction
+- professional development
+date: '2022-02-15'
 rating: ⭐⭐⭐⭐⭐
 layout: post
 author: Patrick D. Mobley
