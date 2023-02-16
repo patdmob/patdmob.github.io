@@ -32,14 +32,14 @@ website:
   comments:
     giscus: 
       repo: patdmob/patdmob.github.io
-      repo-id: "R_kgDOI-1YBg"
-      category: "Announcements"
-      category-id: "DIC_kwDOI-1YBs4CUQ2J"
-      mapping: "title"
+      repo-id: R_kgDOI-1YBg
+      category: Announcements
+      category-id: DIC_kwDOI-1YBs4CUQ2J
+      mapping: title
       reactions-enabled: true
-      input-position: "top"
-      theme: "light_protanopia"
-      loading: "lazy"
+      input-position: top
+      theme: light_protanopia
+      loading: lazy
 format:
   html:
     theme: lux
