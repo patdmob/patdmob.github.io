@@ -1,0 +1,38 @@
+project:
+  type: website
+  output-dir: docs
+website:
+  title: "Patrick D. Mobley"
+  cookie-consent:
+    style: headline
+  google-analytics:
+    tracking-id: UA-122946005-1
+    anonymize-ip: true
+  favicon: favicon-32x32.png 
+  navbar:
+    left:
+      - text: Home
+        href: index.qmd
+      - text: Posts
+        href: posts/index.qmd
+      - text: Tutorials
+        href: tutorials/index.qmd
+      - text: Book Reviews
+        href: books/index.qmd
+      - about.qmd
+    right:
+      - icon: twitter
+        href: https://twitter.com/patdmob/
+      - icon: linkedin
+        href: https://www.linkedin.com/in/patrickdmobley/
+      - icon: github
+        href: https://github.com/patdmob/
+      - icon: envelope
+        href: mailto:patdmob@gmail.com
+format:
+  html:
+    theme: lux
+    css: styles.css
+
+
+

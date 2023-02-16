@@ -1,0 +1,60 @@
+---
+listing:
+  - id: posts
+    contents: posts/*/index.qmd
+    sort: "date desc"
+    type: grid
+    categories: true
+    sort-ui: false
+    filter-ui: false
+    page-size: 3   
+    image-height: "12em"
+    fields: [image, date, title, reading-time, description]
+  - id: tutorials
+    contents: tutorials/*/index.qmd
+    sort: "date desc"
+    type: grid
+    categories: true
+    sort-ui: false
+    filter-ui: false
+    page-size: 3   
+    image-height: "12em"
+    fields: [image, date, title, reading-time, description]
+  - id: books
+    contents: books/*/index.qmd
+    sort: "date desc"
+    type: grid
+    categories: true
+    sort-ui: false
+    filter-ui: false
+    page-size: 3   
+    image-height: "12em"
+    fields: [image, date, title, reading-time]
+page-layout: full
+title-block-banner: false
+comments: false
+search: false
+---
+
+## Recent Posts
+
+::: {#posts}
+:::
+
+<a href="../posts/index.html"> <button type="button" class="btn btn-primary float-end btn-sm">See all</button></a>
+
+<br>
+
+## Recent Tutorials
+
+::: {#tutorials}
+:::
+
+<a href="../tutorials/index.html"> <button type="button" class="btn btn-primary float-end btn-sm">See all</button></a>
+
+## Recent Book Reviews
+
+::: {#books}
+:::
+
+<a href="../books/index.html"> <button type="button" class="btn btn-primary float-end btn-sm">See all</button></a>

@@ -1,0 +1,25 @@
+---
+title: "Book Reviews"
+listing:
+  - id: books
+    contents: "*/index*"
+    sort: "date desc"
+    type: table
+    categories: true
+    sort-ui: false
+    filter-ui: false
+    fields: [image, date, title, reading-time, rating]
+page-layout: full
+title-block-banner: false
+comments: false
+search: false
+---
+
+Welcome to my book review section! As a data scientist, I spend a lot of time analyzing and interpreting data to uncover insights and make informed decisions. However, my passion for learning extends beyond my professional life. I find reading to be an incredibly enriching experience, and it has the power to expand our knowledge, challenge our perspectives, and broaden horizons.
+
+Over the years, I've come to appreciate the value of sharing my thoughts and insights about the books I've read. Writing book reviews allows me to reflect on what I've learned, analyze the ideas presented in the book, and offer my own opinions to others.
+
+Through this section, I hope to provide others a way to engage in thoughtful discussions about literature and gain insights into the books they have interest in reading. I've read a wide range of books across various genres, and I'm excited to share my thoughts on each one with you.
+
+::: {#books}
+:::

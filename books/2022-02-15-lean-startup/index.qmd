@@ -1,0 +1,35 @@
+---
+categories:
+- book review
+- product management
+- business
+date: '2022-03-02'
+rating: ⭐⭐⭐⭐⭐
+layout: post
+author: Patrick D. Mobley
+title: "The Lean Startup by Eric Ries"
+toc: true
+image: LeanStartup.jpg
+---
+
+![](LeanStartup.jpg){width=12em fig-align="center"}
+
+Back in 2017, a coworker and friend of mine recommended me this book. *The Lean Startup* is a business book written by Eric Ries that outlines a new approach to starting and growing a business. This approach, called the "lean startup method," emphasizes the importance of rapid experimentation, continuous improvement, and customer feedback.
+
+While I bought the book right away, I embarrassingly didn't get around to reading it until years later. It's a shame I waited so long, as the book has undoubtedly had a profound impact on the way companies approach business. Understanding this shift in thinking has provided valuable insight into some of the decisions that organizations make. I also have a much better understanding of what goes into making a great product. 
+
+The book starts by discussing the problem with traditional business plans and why they are not suitable for today's fast-paced and constantly changing business landscape. It then introduces the concept of a "minimum viable product" (MVP) and explains how it can be used to test a business idea quickly and cheaply.
+
+The concept of an MVP was not new to me, however this book offered a more nuanced perspective on the subject. Now when I start new data science project, I develop and test initial models more quickly to share them with my team for feedback. This helps us iterate and refine the models faster, and ultimately leads to better outcomes.
+
+In addition, I've found thinking in terms of MVPs has helped me focus on the most important aspects of a project, rather than getting bogged down in details that don't add significant value. This has allowed me to be more efficient with my time and resources, and has led to more impactful work.
+
+The author then dives into the build-measure-learn feedback loop, which is the core of the lean startup method. This loop involves building a product, measuring its performance, and learning from customer feedback, and then using those learnings to improve the product in the next iteration.
+
+The book also covers the importance of focusing on the right metrics and key performance indicators (KPIs), as well as the value of continuous innovation and pivoting when necessary. As someone who works in data science, I found the book's emphasis on metrics and KPIs to be particularly relevant. Ries stresses the importance of focusing on the right metrics and using them to inform decisions about the product and the business as a whole. This approach aligns with the data-driven mindset that I've developed through my work in analytics. 
+
+But even for those who don't work in data science, the insights offered by *The Lean Startup* are valuable. The book's emphasis on creating a culture of experimentation and continuous improvement can be applied to any business or organization. Ries provides practical strategies for developing and testing ideas, and for pivoting when necessary in order to find the right product-market fit.
+
+Overall, "The Lean Startup" is an important book for anyone interested in entrepreneurship or innovation. It offers a practical business approach for creating and improving products that meet the needs of customers. Whether you work in data science or any other field, this book is a must-read for anyone looking to succeed in the world of business.
+
+Rating: ⭐⭐⭐⭐⭐
