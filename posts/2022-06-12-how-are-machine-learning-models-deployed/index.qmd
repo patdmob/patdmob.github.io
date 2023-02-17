@@ -9,7 +9,7 @@ date: '2022-06-12'
 description: a high-level overview
 layout: post
 author: Patrick D. Mobley
-title: "What are the ways to deploy machine learning models?"
+title: "How are machine learning models deployed?"
 toc: true
 image: deployment.png
 ---

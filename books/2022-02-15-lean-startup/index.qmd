@@ -5,6 +5,8 @@ categories:
 - business
 - non-fiction
 - professional development
+- metrics
+- goal setting
 date: '2022-02-15'
 rating: ⭐⭐⭐⭐⭐
 layout: post
