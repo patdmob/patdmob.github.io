@@ -11,7 +11,7 @@ date: '2022-02-15'
 rating: ⭐⭐⭐⭐⭐
 layout: post
 author: Patrick D. Mobley
-title: "The Lean Startup by Eric Ries"
+title: "Review of The Lean Startup"
 toc: true
 image: LeanStartup.jpg
 ---

@@ -10,7 +10,7 @@ date: '2023-01-12'
 rating: ⭐⭐⭐⭐
 layout: post
 author: Patrick D. Mobley
-title: "Flawless Consulting by Peter Block"
+title: "Review of Flawless Consulting"
 toc: true
 image: flawless-consulting.jpg
 ---
@@ -19,11 +19,11 @@ image: flawless-consulting.jpg
 
 *Flawless Consulting* by Peter Block is written as guide for consultants of all levels, covering the fundamentals of consulting, the process of engagement, and achieving results for clients. The book emphasizes the importance of building trust, understanding client needs, and staying curious and adaptable.
 
-One of the greatest strengths of *Flawless Consulting* is its emphasis on communication and relationship-building. Block's guidance on how to manage difficult conversations and conflicts, as well as how to build rapport with clients and colleagues, is valuable not only for consultants but also for anyone working in a professional setting. By stressing the importance of active listening, clear and concise communication, and empathy, Block's advice can help readers improve their interpersonal skills and work more effectively with others.
+One of the strengths of *Flawless Consulting* is its emphasis on communication and relationship-building. Block's guidance on how to manage difficult conversations and conflicts, as well as how to build rapport with clients and colleagues, is valuable not only for consultants but also for anyone working in a professional setting. By stressing the importance of active listening, clear and concise communication, and empathy, Block's advice can help readers improve their interpersonal skills and work more effectively with others.
 
-While some readers may find the ideas presented in *Flawless Consulting* to be intuitive, Block's guidance on how to engage with clients effectively is helpful. He provides practical advice for achieving positive outcomes, navigating difficulties, and maintaining strong professional relationships. The book's real-world examples and practical tips make it a valuable resource for both novice and experienced consultants.
+While many readers may find some of the ideas presented in *Flawless Consulting* to be intuitive, Block's guidance on how to engage with clients effectively is helpful. He provides practical advice for achieving positive outcomes, navigating difficulties, and maintaining strong professional relationships. The book's real-world examples and practical tips make it a valuable resource for both novice and experienced consultants.
 
-However, the book's wordiness and repetition at times was a drawback for me and made it more difficult for me to get through some sections. Despite this, I appreciated the useful insights into the consulting profession, the thought process of a consultant, and the value they bring. Towards the end, there is an impactful story of a teacher who changed their approach to teaching after reading an earlier edition of *Flawless Consulting*. To me, it demonstrates the value of Block's approach for anyone looking to improve their ability to work with others and achieve their goals.
+However, the book's wordiness and repetition at times was a drawback for me and made it a bit of a slog to get through some sections. Despite this, I appreciated the useful insights into the consulting profession, the thought process of a consultant, and the value they bring. Towards the end, there is an impactful story of a teacher who changed their approach to teaching after reading an earlier edition of *Flawless Consulting*. To me, it demonstrates the value of Block's approach for anyone looking to improve their ability to work with others and achieve their goals.
 
 Overall, *Flawless Consulting* is a valuable resource for those interested in consulting or improving their professional skills. It provides guidance on how to avoid common pitfalls, deliver high-quality work that meets client needs, and build and maintain strong client relationships.
 
