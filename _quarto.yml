@@ -12,6 +12,8 @@ website:
     anonymize-ip: true
   favicon: favicon-32x32.png 
   navbar:
+    logo: name.png
+    title: false
     left:
       - text: Home
         href: index.qmd
