@@ -13,7 +13,7 @@ title: Taking a .bat to scripts
 
 ---
 
-![](./baseballBAT.png)
+![](./baseballBAT.png){width=25em fig-align="center"}
 
 Let's suppose that we need to periodically run the same scripts (written in R or Python perhaps), and furthermore we're using Windows. One of many possible solutions to this problem is to use a .bat file and then use a task scheduler to periodically run those scripts. 
 

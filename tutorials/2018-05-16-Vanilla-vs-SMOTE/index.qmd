@@ -10,17 +10,9 @@ layout: post
 author: Patrick D. Mobley
 title: Vanilla vs SMOTE Flavored Imbalanced Classification
 image: unnamed-chunk-35-1.png
+toc: true
+toc-depth: 2
 ---
-
-Outline
--------
-
--   [Introduction](#introduction)
--   [Setup](#setup)
--   [Benchmarking Logistic Regression](#benchmarking-logistic-regression)
--   [Benchmarking Decision Tree](#benchmarking-decision-tree)
--   [Benchmarking randomForest](#benchmarking-randomforest)
--   [Conclusion](#conclusion)
 
 Introduction
 ------------

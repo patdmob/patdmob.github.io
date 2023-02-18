@@ -13,7 +13,7 @@ toc: false
 image: julia.png
 ---
 
-![](julia3.png) 
+![](julia3.png){width=18em fig-align="center"}
 
 This project was just first attempt creating a Julia Project using VS Code. Workflow is super important to me so I generally try to understand that first when learning a new language. I found the [video](https://www.youtube.com/watch?v=IdhnP00Y1Ks&ab_channel=TheJuliaProgrammingLanguage) by David Anthoff and decided to follow along and take notes along the way. [This repository](https://github.com/patdmob/getting_started_with_julia_in_vscode) is the result. If you watch the video, he assumes you already have some familiarity with VS Code and glosses over certain keyboard shortcuts. I try my best to explicitly explain the steps below. 
 

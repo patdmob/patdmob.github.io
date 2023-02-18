@@ -9,20 +9,10 @@ description: 'This notebook is a tutorial on using <em>mlr</em> to solve an imba
 layout: post
 author: Patrick D. Mobley
 title: Imbalanced Classification with mlr
+toc: true
+toc-depth: 2
 ---
 
-Outline
--------
-
--   [Introduction](#introduction)
--   [Data](#data)
--   [Model Development](#model-development)
-    -   [Model Setup](#model-setup)
-    -   [Tune Hyperparameters](#tune-hyperparameters)
-    -   [Measuring Performance](#measuring-performance)
--   [Results](#results)
--   [Interpretability](#interpretability)
--   [Production Model](#production-model)
 
 Introduction
 ------------

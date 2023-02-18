@@ -1,1 +1,16 @@
 /* css styles */
+
+.btn-primary:hover {
+    color: #000;
+    background-color: #f0f1ff;
+    border-color: #f0f1ff;
+    padding: .375rem .75rem;
+    font-size: .8rem !important;
+    margin-top: -9px;
+  }
+  
+.btn-primary {
+padding: .375rem .75rem;
+font-size: .8rem !important;
+margin-top: -9px;
+}
