@@ -14,7 +14,7 @@ toc: true
 image: deployment.png
 ---
 
-![](deployment.png)
+![](deployment.png){width=25em fig-align="center"}
 
 ## Introduction
 

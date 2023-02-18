@@ -43,8 +43,6 @@ search: false
 
 <a href="../posts/index.html"> <button type="button" class="btn btn-primary float-end btn-sm">See all</button></a>
 
-<br>
-
 ## Recent Tutorials
 
 ::: {#tutorials}

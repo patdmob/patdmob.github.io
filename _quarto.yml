@@ -3,6 +3,8 @@ project:
   output-dir: docs
 website:
   title: "Patrick D. Mobley"
+  repo-url: https://github.com/patdmob/patdmob.github.io
+  repo-actions: [issue]
   cookie-consent:
     style: headline
   google-analytics:

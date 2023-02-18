@@ -10,14 +10,12 @@ image: data-2764820_1920.jpg
 layout: post
 author: Patrick D. Mobley
 title: Missing Data Modeled
+toc: true
+toc-depth: 2
 ---
 
-![](./data-2764820_1920.jpg)
+![](./data-2764820_1920.jpg){width=25em fig-align="center"}
 
-Outline
--------
-
-[Introduction](#introduction) <br> [Example data](#example-data) <br> [Understanding the problem & defining success](#understanding-the-problem-defining-success) <br> [Investigating missingness](#investigating-missingness) <br> [Methods to deal with missing data](#methods-to-deal-with-missing-data) <br> [Missing data packages in R](#missing-data-packages-in-r) <br> [Conclusion](#conclusion) <br> [Resources](#resources) <br>
 
 Introduction
 ------------
