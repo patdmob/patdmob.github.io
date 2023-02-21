@@ -3,6 +3,7 @@ categories:
 - tutorial
 - R programming
 - imbalanced classification
+- data science
 date: '2018-05-16'
 description: A companion notebook to Imbalanced Classification with mlr, here we compare
   non-SMOTE and SMOTE modeling using logistic regression, decision trees, and randomForest.

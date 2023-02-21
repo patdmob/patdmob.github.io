@@ -1,0 +1,197 @@
+---
+categories:
+- blog
+- quarto
+- blogging
+- css
+- excalidraw
+date: '2023-02-18'
+description: a blog journey
+layout: post
+author: Patrick D. Mobley
+title: "Making a Quarto Website Fancy"
+toc: true
+image: quarto-2023-02-17.png
+draft: true
+---
+
+![](quarto-2023-02-17.png){width="30em" fig-align="center"}
+
+Whether you're new to [Quarto](https://quarto.org/) or recently [migrated from Fastpages to Quarto](../2023-02-17-migrating-from-fastpages-to-quarto/), you might be wondering how to customize your new blog. While Quarto provides more flexibility and control over formatting and content, it can take some time to get familiar with the system and make it your own. 
+
+In this blog post, I will share some tips and tricks that I've discovered to help you customize your Quarto blog and improve its functionality and engagement.
+
+### Changing the template
+
+Changed the bootstrap template
+there are many [options](https://bootswatch.com/).
+
+ 
+
+### More social links
+
+
+### Adding pages to your website
+
+### Changing the layout
+
+
+### Adding embedded presentations
+
+Let's say you've given some great talks and want share them on your website. I've seen many people use downloadable links or they write companion tutorials (like I did in [Missing Data Modeled](../../tutorials/2018-07-15-Missing-Data-Modeled)) to share their content. But that takes a lot of work and there's a better way. You can use `.qmd` to create an html Revealjs presentation and embed this within a post. Using the Revealjs format, you can even include all of your talking points in the notes.
+
+1. Create a blank post
+2. Add content into the same directory as the blank post 
+  - If you've already created your presentation and have a stand-alone file, include this file in the directory
+  - If not, create a presentation using Revealjs within a `.qmd` file  
+
+:::{.callout-note}
+I've only tested html presentations, so I'm not sure if other formats like `.pptx` will display. 
+:::
+
+3. Add resource to `yml` header. This ensures when building the site to include the presentation file.
+
+```yml
+title: "My presentation post page"
+resources:
+  - "NAME-OF-SLIDESHOW.html"
+```
+4. Add the following html to your blank post:
+
+```html
+<p align="center">
+  <iframe width="400" height="400" marginheight="0" marginwidth="0" 
+          src="./NAME-OF-SLIDESHOW.html"> 
+  Fallback text here for unsupporting browsers, of which there are scant few.
+</iframe></p>
+
+```
+
+Now, you've got a working presentation within your site. Users can make it go full screen, download, or export as a PDF using the menu bar. It should look something like this: 
+![](embedded-slideshow.png){width="30em" fig-align="center"}
+
+
+### Adding videos
+
+Adding videos to your site is really easy as explained [here](https://quarto.org/docs/authoring/videos.html). Basically, you use the `{{{< video >}}}` shortcode. For example:
+
+``` {.markdown shortcodes="false"}
+{{< video https://www.youtube.com/embed/wo9vZccmqwc >}}
+```
+
+### Adding custom CSS buttons
+And of course if you want to customize anything, knowledge of web development will help you out. I added a "See All" button by the pagination page-links. 
+
+Unfortunately, the button was mis-aligned with the pagination page-links so adding the following to the `styles.css` solve the problem. 
+
+```css
+.btn-primary:hover {
+    color: #000;
+    background-color: #f0f1ff;
+    border-color: #f0f1ff;
+    padding: .375rem .75rem;
+    font-size: .8rem !important;
+    margin-top: -9px;
+  }
+  
+.btn-primary {
+padding: .375rem .75rem;
+font-size: .8rem !important;
+margin-top: -9px;
+}
+```
+
+
+![](see-all.png){height="8em" fig-align="center"}
+
+
+
+
+### Adding a favicon
+I used the free favicon generator: https://favicon.io/
+
+### Adding your own icon
+
+changing the navbar icon. I used [Excalidraw](https://excalidraw.com/) to create my website icon. 
+
+![Navbar with title](navbar-with-title.png){height="9em" fig-align="center"}
+
+![Navbar with logo](navar-with-logo.png){height="12em" fig-align="center"}
+
+```css
+.navbar-logo {
+  height: 4em !important;
+  max-width: unset !important;
+  max-height: unset !important;
+}
+```
+
+The Quarto website itself does this through [a similar mechanism](https://github.com/quarto-dev/quarto-web/blob/main/styles.css#L36).  
+
+### Add github links
+
+Many websites have sidebar content to "Report an issue" or "Edit this page". 
+
+I followed the directions [here](https://quarto.org/docs/websites/website-navigation.html#github-links). 
+
+to the `_quarto.yml` file:
+
+```yml
+  repo-url: https://github.com/patdmob/patdmob.github.io
+  repo-actions: [issue]
+```
+
+
+### Adding comments
+
+One feature that many bloggers find helpful is the ability to allow comments on their posts. This not only allows readers to share their thoughts and engage with the content, but also provides valuable feedback for the blogger.
+
+To add comments to your Quarto blog, you can use the [Giscus](https://giscus.app/) or [Utterances](https://utteranc.es/) commenting systems. These systems use GitHub to store comments, so you'll need to have a GitHub account and create a repository for your blog. I prefer Giscus because it stores the comments in the discussion section of the repository which I think is cleaner. Utterances also performs well, however stores the comments in repository issues. 
+
+Instructions:
+
+1. Go the the commenting system url: [Giscus](https://giscus.app/) or [Utterances](https://utteranc.es/)
+2. Follow their setup directions
+3. Type in the name of your `username/repo`
+
+![](comments%20repo.png){width="35em" fig-align="center"}
+
+|       Entering your `username/repo` here will populate the `repo-id` and other fields after selecting the your preferred options. 
+
+4. Select a `Category`. Quarto recommends using the **Announcements** category in their [directions](https://quarto.org/docs/reference/projects/websites.html#comments). 
+
+5. Copy the script output into your `_quarto.yml` file within the `website` property name and strip the output of `data-`. It should look something like this:
+
+```yml
+  comments:
+    giscus: 
+      repo: patdmob/patdmob.github.io
+      repo-id: R_kgDOI-xxx
+      category: Announcements
+      category-id: DIC_kwDOI-1YBs4CUxxx
+      mapping: title
+      reactions-enabled: true
+      input-position: top
+      theme: light_protanopia
+      loading: lazy
+```
+
+6. After completing these steps, you should have comments enabled on you website. It will even work locally when using the command `quarto preview`. To disable comments any page, just insert `comments: false` in the yml header of that page.
+
+
+
+### Adding a subscription feature
+
+At the time of writing this, I haven't added a subscription feature. But there are some great resources to do so.
+  - Excellent post on [adding subscriptions to a Quarto site](https://forbo7.github.io/forblog/posts/7_blog_subscriptions.html)
+https://albert-rapp.de/posts/13_quarto_blog_writing_guide/13_quarto_blog_writing_guide.html#newsletter
+
+## Inspiration
+
+Here are a few Quarto blogs which have inspired me. I hope they can inspire you too!
+
+- [Salman Naqvi](https://forbo7.github.io/)
+- [Mike Mahoney](https://www.mm218.dev/)
+- [Bea Milz](https://beamilz.com/)
+- [Albert Rapp](https://albert-rapp.de/) 
+  - He also has an excellent guide for [creating a Quarto blog](https://albert-rapp.de/posts/13_quarto_blog_writing_guide/13_quarto_blog_writing_guide.html)

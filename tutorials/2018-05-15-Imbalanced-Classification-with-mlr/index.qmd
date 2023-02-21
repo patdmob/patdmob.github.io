@@ -3,6 +3,7 @@ categories:
 - tutorial
 - R programming
 - imbalanced classification
+- data science
 date: '2018-05-15'
 description: 'This notebook is a tutorial on using <em>mlr</em> to solve an imbalanced
   data problem: predicting employee attrition.'

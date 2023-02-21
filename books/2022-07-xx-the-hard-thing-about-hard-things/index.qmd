@@ -1,0 +1,42 @@
+---
+categories:
+- book review
+- business
+- non-fiction
+- professional development
+- strategy
+date: '2023-xx-xx'
+rating: ⭐⭐⭐
+layout: post
+author: Patrick D. Mobley
+title: "Review of The Hard Thing About Hard Things"
+toc: true
+image: hard-things.jpg
+draft: true
+---
+
+![](hard-things.jpg){width=12em fig-align="center"}
+
+You are a blogger writing a book review of the book “The Hard Thing About Hard Things” using the style, voice, and tone of informative, educational, and conversational. Include a chronological summary of the main points while exploring the strengths and weaknesses of the book. Use a conversational tone without actually calling out each “strength” and “weakness”. Finally make a recommendation for others to read or not. Incorporate the following observations:
+
+- The book was perhaps not worth my time, three stars. 
+- Looking at Amazon reviews, people either love or hate this book. 
+- It felt like reading like a braggarts autobiography. I can suffer this, however the actual substance was lacking. Much of the author's success relies on the privilege that most of us lack: (give examples). I felt concerned that perhaps I was alone in this, but many other Amazon reviews also felt so as well. 
+- The book provided advice for mainly C-Suite executives and offered some insight into the thought process of these individuals. But for most people the advice is not actionable. 
+- The book makes good recommendations for other books. 
+- I, like others, found myself putting it down at 50%, then at 80%, forging on hoping I'd get more out of the book than I did. 
+- Like many things, if you need to hear a particular message, you will benefit. People who loved the book said "it was compelling" and spoke to them as an Entrepreneur, CEO, and Trader. But for others, the message has already been delivered, not needed, or intuitive. 
+
+
+The book, "The Hard Thing About Hard Things," chronicles the journey of Ben Horowitz, a successful entrepreneur, venture capitalist, and co-founder of Andreessen Horowitz. It offers a firsthand account of the struggles he faced while running a startup, including raising capital, dealing with layoffs, and managing employees. I can say that the book was perhaps not worth my time. After browsing Amazon reviews, I noticed that people either love or hate this book, and I can understand why.
+
+Horowitz provides advice on how to navigate the challenges that come with running a business, such as creating a strong company culture, making tough decisions, and leading through uncertainty. He emphasizes the importance of maintaining a positive attitude and having the courage to face difficult situations head-on. Unfortunately, while perhaps motivational for C-Suite executives, for most people the advice is not actionable beyond offering some insight into their thought process. 
+
+To be brutally honest, it almost felt like reading a braggart's autobiography. I can suffer this, however, the actual substance was lacking. Much of the author's success relies on the privilege that most of us lack, such as having access to wealthy connections and receiving a significant financial investment. <!-- example of connection unrealatability, it would have been better if he gave examples of how he created those connections.  --> I felt concerned that perhaps I was alone in my critiques, but many other Amazon reviewer also felt so as well. I, like others, found myself putting it down at 50%, then at 80%, forging on and hoping I'd get more out of the book than I did. Additionally, some readers may find the author's writing style and language too casual or even offensive. The book is rife with profanity and sexist language, which may turn off some readers. Perhaps ironically, the book does make good recommendations for other books <!-- such as -->.
+
+I think like many things, if you need to hear a particular message, you will benefit. People who loved the book said "it was compelling" and spoke to them as an entrepreneur, CEO, and trader. But for others, the message has already been delivered, not needed, or is just obvious. So perhaps this book was just not for me, or me yet. 
+
+In summary, while the book has its strengths, to me it falls far short of being an essential business book. The advice provided is not actionable for most readers, and the substance of the book relies heavily on the author's privilege. If you are a C-Suite executive looking for insight into the thought process of others in your position, you may benefit from this book. Otherwise, I would recommend exploring other business guides that are more inclusive and offer more actionable advice.
+
+
+Rating: ⭐⭐⭐

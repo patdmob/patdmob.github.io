@@ -3,6 +3,7 @@ project:
   output-dir: docs
 website:
   title: "Patrick D. Mobley"
+  image: name.png
   repo-url: https://github.com/patdmob/patdmob.github.io
   repo-actions: [issue]
   cookie-consent:
@@ -12,6 +13,9 @@ website:
     anonymize-ip: true
   favicon: favicon-32x32.png 
   navbar:
+    logo: name.png
+    logo-alt: "Patrick Mobley"
+    title: false
     left:
       - text: Home
         href: index.qmd
