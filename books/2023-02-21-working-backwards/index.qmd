@@ -13,7 +13,6 @@ author: Patrick D. Mobley
 title: "Review of Working Backwards"
 toc: true
 image: working-backwards.jpg
-draft: true
 ---
 
 ![](working-backwards.jpg){width=12em fig-align="center"}
