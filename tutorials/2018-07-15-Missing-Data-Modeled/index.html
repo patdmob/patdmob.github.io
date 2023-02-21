@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Patrick D. Mobley">
+<meta name="dcterms.date" content="2018-07-15">
+<meta name="description" content="By creating a missing data model, you can understand the underlying data assumptions critical to your data science model.">
+
+<title>Patrick D. Mobley - Missing Data Modeled</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../favicon-32x32.png" rel="icon" type="image/png">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-122946005-1', 'auto');
+
+ga('send', {
+  hitType: 'pageview',
+  'anonymizeIp': true,
+});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"headline",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  });
+});
+</script> 
+  
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../name.png" alt="Patrick Mobley" class="navbar-logo">
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../posts/index.html">
+ <span class="menu-text">Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../tutorials/index.html">
+ <span class="menu-text">Tutorials</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../books/index.html">
+ <span class="menu-text">Book Reviews</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html">
+ <span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/patdmob/"><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/patrickdmobley/"><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/patdmob/"><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:patdmob@gmail.com"><i class="bi bi-envelope" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#example-data" id="toc-example-data" class="nav-link" data-scroll-target="#example-data">Example data</a></li>
+  <li><a href="#understanding-the-problem-defining-success" id="toc-understanding-the-problem-defining-success" class="nav-link" data-scroll-target="#understanding-the-problem-defining-success">Understanding the problem &amp; defining success</a></li>
+  <li><a href="#investigating-missingness" id="toc-investigating-missingness" class="nav-link" data-scroll-target="#investigating-missingness">Investigating missingness</a></li>
+  <li><a href="#methods-to-deal-with-missing-data" id="toc-methods-to-deal-with-missing-data" class="nav-link" data-scroll-target="#methods-to-deal-with-missing-data">Methods to deal with missing data</a></li>
+  <li><a href="#missing-data-packages-in-r" id="toc-missing-data-packages-in-r" class="nav-link" data-scroll-target="#missing-data-packages-in-r">Missing data packages in R</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  <li><a href="#footnotes" id="toc-footnotes" class="nav-link" data-scroll-target="#footnotes">Footnotes</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/patdmob/patdmob.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Missing Data Modeled</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">tutorial</div>
+    <div class="quarto-category">R programming</div>
+    <div class="quarto-category">missing data</div>
+    <div class="quarto-category">data science</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    By creating a missing data model, you can understand the underlying data assumptions critical to your data science model.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Patrick D. Mobley </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 15, 2018</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./data-2764820_1920.jpg" class="img-fluid figure-img" style="width:25em"></p>
+</figure>
+</div>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Missing data analysis is often overlooked in the data modeling process, yet it is essential for developing high quality models. Before cleaning, nearly every dataset contains missing data. As we prepare the dataset for modeling, we make various assumptions that impact how the production model will interact in the real-world.</p>
+<p>Unfortunately, we can’t leave these decisions to algorithms. Most learners simply drop any records with missing data. And models that “support” missing data often only perform basic mean/mode imputation. These common but naive approaches to missingness can erode the data leaving it underpowered and/or biased–unable to answer intended questions. Fortunately, missing data analysis has provided us with a framework to overcome these challenges.</p>
+<p>In this notebook, I provide an overview to missing data analysis. After reading this, you should have a solid understanding of the problem, considerations, and techniques relevant for missing data analysis.</p>
+</section>
+<section id="example-data" class="level2">
+<h2 class="anchored" data-anchor-id="example-data">Example data</h2>
+<p>Admittedly, the iris dataset is overused. But the data isn’t the point. It’s just a vehicle to get where we’re going. In case you haven’t interacted with the Iris dataset before:</p>
+<section id="iris-dataset" class="level5">
+<h5 class="anchored" data-anchor-id="iris-dataset">Iris Dataset</h5>
+<p>There are three types of iris flowers, each with measurements for sepal length, sepal width, petal length, and petal width.</p>
+<ul>
+<li>Setosa</li>
+<li>Versicolour</li>
+<li>Virginica</li>
+</ul>
+<p>The dataset contains 50 observations for each flower.</p>
+</section>
+</section>
+<section id="understanding-the-problem-defining-success" class="level2">
+<h2 class="anchored" data-anchor-id="understanding-the-problem-defining-success">Understanding the problem &amp; defining success</h2>
+<p>Depending on your experience, you may already understand why missing data is a problem. However, let me formally define the problem and state a few goals which define success.</p>
+<section id="loss-of-power" class="level3">
+<h3 class="anchored" data-anchor-id="loss-of-power">Loss of power</h3>
+<p>Statistical power refers to the amount of data required to reliably make a statistical claim. Simply said, missing data results in less usable data. Occasionally we have data to spare, but even small amounts of missing data can drastically reduce the size of usable data. In many fields, data collection is extremely costly and sometimes cannot be replicated.</p>
+<p>If we randomly drop 6% of values, then a sample of the Iris dataset might look like this:</p>
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0           NA         0.2  setosa
+3           NA         3.2          1.3         0.2    &lt;NA&gt;
+4          4.6         3.1          1.5         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa
+6          5.4         3.9          1.7         0.4  setosa</code></pre>
+<p>Most models require complete data (no missing values) from which to learn. After removing rows with missing data, we only have 113 out of 150 complete rows. Therefore, even small amounts of missing data (6%) can result in large data loss (24.7%) from a modeling perspective. Generally, a good solution to missing data will maximize available data.</p>
+</section>
+<section id="bias" class="level3">
+<h3 class="anchored" data-anchor-id="bias">Bias</h3>
+<p>The second way missing data impacts a dataset is through bias. Consider the following chart. In this case, random elements were dropped from the data if petal length was less than 3.0. Perhaps the data collector had an unconscious bias against short petal iris flowers.</p>
+<p><img src="./unnamed-chunk-4-1.png" class="img-fluid"></p>
+<p>At first glance, the available case distribution looks similar to the real data. But a common mistake in exploratory data analysis is to consider each variable individually and not compare this to what the model actually uses. If there is a pattern to the missingness, complete-case (only using complete rows) modeling will result in a biased model. At this point we need to ask ourselves why the data is missing. There can be multiple reasons which may require different strategies to address.</p>
+<p>If we can successfully rule out any patterns to the missingness, then we can assume it is Missing Completely at Random (MCAR). The following chart shows data that is MCAR.</p>
+<p><img src="./unnamed-chunk-5-1.png" class="img-fluid"></p>
+<p>Notice, even though the sample size decreases, the general distribution remains the same. If the data is MCAR, then bias is not a concern; however data is rarely MCAR. Regardless, a good solution for missing data will seek to make bias as small as possible.</p>
+</section>
+<section id="estimating-uncertainty" class="level3">
+<h3 class="anchored" data-anchor-id="estimating-uncertainty">Estimating uncertainty</h3>
+<p>Any method we use will change the shape of the data. Ideally, this altered shape should resemble the real data as closely as possible. But exactly how close is it? Much of statistics is primarily concerned about two things: estimating the magnitude of a statistic (mean, median, variance, etc.) and the probability/likelihood of occurrence. If we replace missing values with an estimate, how do we account for the variability in that estimate? Said differently, how confident are we that our estimates are accurate?</p>
+<p>For this reason, advanced techniques like Multiple Imputations using Chained Equations (MICE) give a distribution of potential values. This provides an excellent way to correct estimates of uncertainty. However, it also makes modeling more complicated and is not appropriate for all applications. Even so, we should strive for accurate estimates of uncertainty (standard errors, confidence intervals, p-values, etc.).</p>
+</section>
+<section id="goals-for-missing-data-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="goals-for-missing-data-analysis">Goals for Missing Data Analysis</h3>
+<p>To summarize, our goals<sup id="a1"><a href="#f1">1</a></sup> are to:</p>
+<ol type="1">
+<li>Maximize the use of available information. <br></li>
+<li>Minimize bias. <br></li>
+<li>Yield good estimates of uncertainty. <br></li>
+</ol>
+<p>These goals define success for our missing data problem. Of course, we must also balance these goals against any technical constraints of our project. For instance, streaming analytics will need computationally efficient methods which might not ideally solve the missing data but still provide a good enough proximity for the application. If this happens, it’s important to document these model limitations.</p>
+</section>
+</section>
+<section id="investigating-missingness" class="level2">
+<h2 class="anchored" data-anchor-id="investigating-missingness">Investigating missingness</h2>
+<p>It’s important to understand why the data is missing. This could mean one or even multiple reasons. This will help us to choose an appropriate method and avoid biasing our dataset.</p>
+<section id="consider-how-the-data-was-collected" class="level3">
+<h3 class="anchored" data-anchor-id="consider-how-the-data-was-collected">Consider how the data was collected</h3>
+<p>By understanding more about the data collection process, you’re able to discover potential reasons why data might be missing.</p>
+<p>For instance, survey data commonly has missing data. Questions might be confusing or entice people to lie. A good solution for this is to interview a subset of respondents and understand their thought process. Perhaps this subset just didn’t know how to interpret the question.</p>
+<p>Depending on the environment, there might be regular events which impact the data. Monthly power generator tests may briefly shut down computers collecting data. By talking with building management, you can get a schedule of events which may impact your data.</p>
+<p>Regardless of the cause, understanding how the data was collected, its consistency, environment, etc. all help you to understand potential sources bias and missing data.</p>
+</section>
+<section id="visualizing-the-problem" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-the-problem">Visualizing the problem</h3>
+<p>It is common in Exploratory Data Analysis (EDA) to only visualize what is there, forgetting about what is not. Actually, much of missing data analysis is part of EDA. But how do you visualize what is not there? You look at the pattern!</p>
+<p>Here I’ve used a packaged called <code>VIM</code> to visualize the missingness pattern:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("VIM")</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(VIM)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">aggr</span>(iris_mis, <span class="at">col=</span><span class="fu">c</span>(<span class="st">'darkred'</span>,<span class="st">'slategrey'</span>),<span class="at">numbers=</span><span class="cn">TRUE</span>,<span class="at">sortVars=</span><span class="cn">TRUE</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels=</span><span class="fu">names</span>(iris_mis2),<span class="at">cex.axis=</span>.<span class="dv">8</span>,<span class="at">gap=</span><span class="dv">3</span>,<span class="at">ylab=</span><span class="fu">c</span>(<span class="st">"Proportion of Missing Data"</span>,<span class="st">"Pattern"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="./unnamed-chunk-6-1.png" class="img-fluid"></p>
+<p>On the left, we have a bar chart showing the proportion of missing data for each variable. And on the right, we have can see the pattern of missingness for each combination of variables. For instance, 75.3% of the data is complete with no missing values.</p>
+<p>When visualizing missing data, think about why it might be missing missing and how you plan on using the data in a model. Is a variable with high missingness necessary for the model? Will dropping observations with high missingness induce bias or critically impact power? What is the most/least common missingness pattern? Are there any missingness dependencies between variables (e.g.&nbsp;are two variables are always missing together)?</p>
+<p>You can also look at any correlations between missing and present data. If we looked at a data set of heights and weights, perhaps taller individuals were more likely to have missing weight. If so, visualizing the histogram of height by missing weight frequency may reveal an interesting pattern.</p>
+</section>
+<section id="three-types-of-missing-data" class="level3">
+<h3 class="anchored" data-anchor-id="three-types-of-missing-data">Three types of missing data</h3>
+<p>While researching the data collection process and performing EDA, it helps to understand the three types of missing data. Each type has different implications. To illustrate, imagine that you’re a field investigator collecting household surveys to understand the labor market.</p>
+<section id="mcar---missing-completely-at-random" class="level5">
+<h5 class="anchored" data-anchor-id="mcar---missing-completely-at-random">MCAR - Missing Completely At Random</h5>
+<p>You have just finished collecting surveys. On your way back to the office, a stack of surveys take flight on a gust of wind. As you scramble to catch them, some of the responses are obscured.</p>
+<p>This is a case of Missing Completely At Random (MCAR). We know this because an unrelated outside event resulted in missing data. In other words, the cause of missingness is unrelated to the data. The wind doesn’t care which answers are obscured. It was a completely random accident.</p>
+<p>If your data is MCAR, great! It’s the easiest of all missingness to handle. MCAR is un-biased missing data. Simple statistic imputation (mean, median, mode, etc.) is a perfectly legitimate method when your data is MCAR. If you have enough data, deleting rows with missingness (complete-case analysis) is also an option. Unfortunately, MCAR is the least common form of missing data.</p>
+</section>
+<section id="mar---missing-at-random" class="level5">
+<h5 class="anchored" data-anchor-id="mar---missing-at-random">MAR - Missing At Random</h5>
+<p>After entering the data and exploratory data analysis, you realize that an occupational subgroup has a high rate of missingness concerning their income (e.g.&nbsp;perhaps attorneys prefer not to disclose their income). While not ideal, this missingness is manageable since you are able to use other variables to tease out their likely income. In other words, the missingness is biased in some way explainable by the data.</p>
+<p>This type of missingness is considered to be Missing At Random (MAR). Ironically, this is not the best name since it is really conditionally missing at random. But it’s historical so it stuck.</p>
+</section>
+<section id="mnar---missing-not-at-random" class="level5">
+<h5 class="anchored" data-anchor-id="mnar---missing-not-at-random">MNAR - Missing Not At Random</h5>
+<p>Lastly, suppose larger households omit the number of people living in the household. In this case, the reason for missingness depends on the missing values themselves and not on other variables for which we have information. Another case of MNAR would be if an unmeasured 3rd party is trying to influence the data.</p>
+<p>This kind of missingness is considered Missing Not At Random (MNAR). MNAR is bias unexplained by current data. Unfortunately this kind of missingness is difficult to test for or solve. Sometimes the best way to overcome MNAR is by collecting additional information.</p>
+</section>
+<section id="difference-between-mar-and-mnar" class="level5">
+<h5 class="anchored" data-anchor-id="difference-between-mar-and-mnar">Difference between MAR and MNAR</h5>
+<p>One way to think about the difference between MAR and MNAR missingness is based on available information. Let’s say that we have a dataset with only one variable: Income. If income is missing for given observations, we have no other information from which to make an educated guess. This is MNAR. However, if we collect Occupation, Employed, Education, Age, Experience, etc. we might be able to make a much better guess at income. Now the missing data is MAR. The key difference is whether the bias can be explained by the current data.</p>
+</section>
+</section>
+</section>
+<section id="methods-to-deal-with-missing-data" class="level2">
+<h2 class="anchored" data-anchor-id="methods-to-deal-with-missing-data">Methods to deal with missing data</h2>
+<section id="consider" class="level3">
+<h3 class="anchored" data-anchor-id="consider">Consider</h3>
+<p>Three things to consider when choosing a method for handling missing data:</p>
+<ul>
+<li>What is the type and cause of missingness?
+<ul>
+<li>MCAR, MAR, or MNAR</li>
+<li>Likely cause(s)</li>
+</ul></li>
+<li>What is the shape of the data?
+<ul>
+<li>Ordinal, nominal, continuous, discrete, time series, panel etc.</li>
+<li>What does the distribution look like?</li>
+</ul></li>
+<li>What are my constraints?
+<ul>
+<li>Sample size (too large, too small)</li>
+<li>Streaming or batch</li>
+<li>Training time</li>
+</ul></li>
+</ul>
+<p>Each method makes different assumptions or is optimized for a particular type of data. Choose the method that fits your data type and problem best. You will likely need to learn a few different methods to handle various types of data. More complicated algorithms like Multiple Imputation using Chained Equations (MICE) or Maximum Likelihood can be complicated to set up and may take too much computation for a given application.</p>
+</section>
+<section id="methods" class="level3">
+<h3 class="anchored" data-anchor-id="methods">Methods</h3>
+<p>I’ve listed methods below in order of least to most complicated. For each variable with missingness, consider the methods at the top first. However, if you are conserned about power and bias, then you’ll need to adopt more complicated methods. Finally, if you have many variables with missingness, you may need to use a specialized algorithm which performs multiple imputation.</p>
+<p>Note: Here I make the distinction between replacement, interpolation, and imputation, however they are all forms of imputation (i.e replacing a missing value with an estimated value).</p>
+<ul>
+<li>Deletion
+<ul>
+<li>List-wise (complete-case analysis)</li>
+<li>Pair-wise (available-case analysis)</li>
+<li>Observations or variables with too little information to be useful <br><br></li>
+</ul></li>
+<li>Replacement
+<ul>
+<li>Static value: mean, median, mode, constant, zeros, “missing” for categorical variables</li>
+<li>Dynamic value: logical rules, LVCF, hot-deck, cold-deck, random<br><br></li>
+</ul></li>
+<li>Interpolation
+<ul>
+<li>Appropriate for data following a predictable pattern (1, 2, ?, 4, 5…)</li>
+<li>Common for time-series or spatial data <br><br></li>
+</ul></li>
+<li>Missingness Indicator
+<ul>
+<li>Indicator variable to denote a replaced/interpolated/imputed missing value. This assumes there is a unobserved reason/pattern for missingness, and if not can induce bias <br><br></li>
+</ul></li>
+<li>Imputation
+<ul>
+<li>Single imputation uses other features to predict/approximate the correct value of one variable. In reality, this can be any common model used by predicting the missing values (e.g.&nbsp;regression, knn, etc.).</li>
+<li>Multiple imputation imputes multiple variables at the same time. The rational being if multiple variables have biased missingness, then imputing one variable on others would result in biased imputation. These are usually specialized missing data models which iterate over each variable with missingness until convergence (e.g.&nbsp;MICE, Maximum Likelihood, missForest, etc.). <br><br></li>
+</ul></li>
+<li>Combination</li>
+</ul>
+<p>Occationally, it makes sense to use create a missingness indicator for select variables. Let’s suppose that variable <em>x</em>’s missingness likely represents a group uncaptured by other variables. Then we should create a missingness indicator for variable <em>x</em> and impute missing values for <em>x</em>.</p>
+<p>A dataset will probably require multiple methods. It is common to drop a variable with lots of missingness, then interpolate a date field, before performing multiple imputation on the rest.</p>
+<section id="keep-in-mind" class="level4">
+<h4 class="anchored" data-anchor-id="keep-in-mind">Keep in Mind</h4>
+<blockquote class="blockquote">
+<p>All models are wrong, but some are useful</p>
+</blockquote>
+<pre><code>  — famed statistician George Box</code></pre>
+<p>Your solution to missing data is just a model. It’s wrong, but it can be useful. Don’t take it too seriously, but know that it is important.</p>
+</section>
+</section>
+</section>
+<section id="missing-data-packages-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="missing-data-packages-in-r">Missing data packages in R</h2>
+<p>This is by no means an exhaustive list, but these packages are fairly popular.</p>
+<ul>
+<li>Imputation
+<ul>
+<li><a href="https://cran.r-project.org/web/packages/Hmisc/Hmisc.pdf">Hmisc</a> - General package with functions for single and multiple imputation</li>
+<li><a href="https://stat.ethz.ch/education/semesters/ss2013/ams/paper/missForest_1.2.pdf">missForest</a> - Muliple Imputation based on Random Forest algorithm</li>
+<li><a href="https://www.jstatsoft.org/index.php/jss/article/view/v045i03/v45i03.pdf">MICE</a> - Muliple Imputation using Chained Equations</li>
+<li><a href="https://cran.r-project.org/web/packages/Amelia/vignettes/amelia.pdf">Amelia</a> - Imputation for time series data <br> <br></li>
+</ul></li>
+<li>Tools and visualization
+<ul>
+<li><a href="https://cran.r-project.org/web/packages/mitools/mitools.pdf">mitools</a> - Tools for multiple imputation of missing data</li>
+<li><a href="https://cran.r-project.org/web/packages/VIMGUI/vignettes/VIM-Imputation.pdf">VIM</a> - Visualization and Imputation of Missing values</li>
+</ul></li>
+</ul>
+<p>In the following examples, we’ll use the biased Iris dataset (random elements were dropped if petal length was less than 3.0).</p>
+<section id="example-in-hmisc" class="level3">
+<h3 class="anchored" data-anchor-id="example-in-hmisc">Example in Hmisc</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("Hmisc")</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(Hmisc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>impute()</code> function replaces the missing value with user defined statistical method (default=median | mean | max etc.)</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>iris_mis<span class="sc">$</span>imputed.Petal.Length <span class="ot">&lt;-</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>              <span class="fu">with</span>(iris_mis, <span class="fu">impute</span>(Petal.Length, mean))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>iris_mis<span class="sc">$</span>imputed.Petal.Width <span class="ot">&lt;-</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>              <span class="fu">with</span>(iris_mis, <span class="fu">impute</span>(Petal.Width, mean))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>However, as we can see below, using mean imputation increases the bias making it difficult to identify Setosa, the species with the smallest petal length.</p>
+<p><img src="./unnamed-chunk-9-1.png" class="img-fluid"></p>
+<p>For this reason, you should use more advanced methods when dealing with biased missing data. Even unbiased data will benefit depending on your choice of analytic model (decision trees are probably more affected by mean imputation than linear regression).</p>
+<p><code>aregImpute()</code> function creates multiple imputations using additive regression, bootstrapping, and predictive mean matching.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>imputed_aregImpute <span class="ot">&lt;-</span> <span class="fu">aregImpute</span>(<span class="sc">~</span> Sepal.Length <span class="sc">+</span> Sepal.Width</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                        <span class="sc">+</span> Petal.Length <span class="sc">+</span> Petal.Width <span class="sc">+</span> Species,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> iris_mis, <span class="at">n.impute =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>5 separate imputations to yield good estimates of uncertainty. The literature suggests 20 or more imputations.</p>
+<p>But for now, we want to pool those imputations to graph the results.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>imputed <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">impute.transcan</span>(imputed_aregImpute,</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">imputation =</span> <span class="dv">1</span>, <span class="at">data =</span> iris_mis,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">list.out =</span> <span class="cn">TRUE</span>, <span class="at">pr=</span><span class="cn">FALSE</span>, <span class="at">check=</span><span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Here, muliple imputation does a much better job at matching the shape of the original data.</p>
+<p><img src="./unnamed-chunk-12-1.png" class="img-fluid"></p>
+</section>
+<section id="example-in-mice" class="level3">
+<h3 class="anchored" data-anchor-id="example-in-mice">Example in MICE</h3>
+<p>MICE stands for Multivariate Imputation using Chained Equations</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("mice")</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(mice)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>imputed_mice <span class="ot">&lt;-</span> <span class="fu">mice</span>(<span class="at">data =</span> iris_mis[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], <span class="at">m =</span> <span class="dv">5</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">method =</span> <span class="st">"pmm"</span>, <span class="at">maxit=</span><span class="dv">50</span>, <span class="at">seed=</span><span class="dv">500</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>It is one of the more complicated methods, however it does a great job of imputing missing variables.</p>
+<p><img src="./unnamed-chunk-14-1.png" class="img-fluid"></p>
+</section>
+<section id="example-in-missforest" class="level3">
+<h3 class="anchored" data-anchor-id="example-in-missforest">Example in missForest</h3>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("missForest")</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(missForest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>missForest is a relatively newer imputation algorithm and uses an iterative random forest approach to missing data. It accomplishes this by estimating the accuracy of these predictions and adjusts the model. You can also run it in parallel when installing the package doParallel.</p>
+<p>Imputing with missForest:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("doParallel")</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(doParallel)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">registerDoParallel</span>()                    <span class="co">#registering the processor</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">getDoParWorkers</span>()                       <span class="co">#number of processors running</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#vignette("gettingstartedParallel")     #for more information</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>imputed_forest <span class="ot">&lt;-</span> <span class="fu">missForest</span>(iris_mis[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], <span class="at">parallelize =</span> <span class="st">"forest"</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>imputed_forest<span class="sc">$</span>OOBerror                 <span class="co">#calling Out Of Bag error</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>iris_mis.forest <span class="ot">&lt;-</span> imputed_forest<span class="sc">$</span>ximp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>As you can see, it also does quite well.</p>
+<p><img src="./unnamed-chunk-17-1.png" class="img-fluid"></p>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>While often overlooked, missing data analysis plays an important role in the modeling process. Common but naive approaches often leave datasets underpowered or biased which could impact real-world model performance.</p>
+<p>Missing data analysis is conscerned with making the best use of availible information while minimizing bias and maintaining accurate estimates of uncertainty. To do this, it is important to understand the type of and causes for missingness. We also need to balance the goals of success with the technical constraints of the problem. Afterward, a reasonable approach to handle missing data often becomes clear.</p>
+<p>There are a variety of methods developed to overcome the problem of missing data. This article highlights a few of them. As this is a growing field, new methods constantly appear.</p>
+</section>
+<section id="resources" class="level2">
+<h2 class="anchored" data-anchor-id="resources">Resources</h2>
+<p>This notebook:</p>
+<p><a href="https://github.com/patdmob/Missing-Data" class="uri">https://github.com/patdmob/Missing-Data</a></p>
+<p>Articles:</p>
+<p><a href="http://www.analyticsvidhya.com/blog/2016/03/tutorial-powerful-packages-imputing-missing-values/" class="uri">http://www.analyticsvidhya.com/blog/2016/03/tutorial-powerful-packages-imputing-missing-values/</a></p>
+<p><a href="http://www.analyticsvidhya.com/blog/2016/01/guide-data-exploration/" class="uri">http://www.analyticsvidhya.com/blog/2016/01/guide-data-exploration/</a></p>
+<p><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3074241/" class="uri">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3074241/</a></p>
+<p>Chapters:</p>
+<p><a href="http://www.statisticalhorizons.com/wp-content/uploads/2012/01/Milsap-Allison.pdf" class="uri">http://www.statisticalhorizons.com/wp-content/uploads/2012/01/Milsap-Allison.pdf</a></p>
+</section>
+<section id="footnotes" class="level2">
+<h2 class="anchored" data-anchor-id="footnotes">Footnotes</h2>
+<p><b id="f1">1</b> These goals are adopted from Paul Allison’s chapter on missing data referenced in the <a href="#resources">resources</a> section. <a href="#a1">↩︎</a></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="patdmob/patdmob.github.io" data-repo-id="R_kgDOI-1YBg" data-category="Announcements" data-category-id="DIC_kwDOI-1YBs4CUQ2J" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light_protanopia" data-lang="en" crossorigin="anonymous" data-loading="lazy" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+      <div class="nav-footer-center"><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+  </div>
+</footer>
+
+
+
+</body></html>

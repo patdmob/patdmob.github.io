@@ -1,0 +1,42 @@
+[
+  {
+    "listing": "/posts/index.html",
+    "items": [
+      "/posts/2023-02-17-migrating-from-fastpages-to-quarto/index.html",
+      "/posts/2022-06-12-how-are-machine-learning-models-deployed/index.html",
+      "/posts/2021-05-30-getting-started-with-julia-in-vscode/index.html",
+      "/posts/2018-12-15-Taking-a-bat-to-scripts/index.html"
+    ]
+  },
+  {
+    "listing": "/books/index.html",
+    "items": [
+      "/books/2023-02-21-working-backwards/index.html",
+      "/books/2023-01-12-flawless-consulting/index.html",
+      "/books/2022-02-15-lean-startup/index.html"
+    ]
+  },
+  {
+    "listing": "/index.html",
+    "items": [
+      "/posts/2023-02-17-migrating-from-fastpages-to-quarto/index.html",
+      "/posts/2022-06-12-how-are-machine-learning-models-deployed/index.html",
+      "/posts/2021-05-30-getting-started-with-julia-in-vscode/index.html",
+      "/posts/2018-12-15-Taking-a-bat-to-scripts/index.html",
+      "/tutorials/2018-07-15-Missing-Data-Modeled/index.html",
+      "/tutorials/2018-05-16-Vanilla-vs-SMOTE/index.html",
+      "/tutorials/2018-05-15-Imbalanced-Classification-with-mlr/index.html",
+      "/books/2023-02-21-working-backwards/index.html",
+      "/books/2023-01-12-flawless-consulting/index.html",
+      "/books/2022-02-15-lean-startup/index.html"
+    ]
+  },
+  {
+    "listing": "/tutorials/index.html",
+    "items": [
+      "/tutorials/2018-07-15-Missing-Data-Modeled/index.html",
+      "/tutorials/2018-05-16-Vanilla-vs-SMOTE/index.html",
+      "/tutorials/2018-05-15-Imbalanced-Classification-with-mlr/index.html"
+    ]
+  }
+]

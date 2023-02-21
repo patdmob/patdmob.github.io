@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Patrick D. Mobley">
+<meta name="dcterms.date" content="2022-06-12">
+<meta name="description" content="a high-level overview">
+
+<title>Patrick D. Mobley - How are machine learning models deployed?</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../favicon-32x32.png" rel="icon" type="image/png">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-122946005-1', 'auto');
+
+ga('send', {
+  hitType: 'pageview',
+  'anonymizeIp': true,
+});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"headline",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  });
+});
+</script> 
+  
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../name.png" alt="Patrick Mobley" class="navbar-logo">
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../posts/index.html">
+ <span class="menu-text">Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../tutorials/index.html">
+ <span class="menu-text">Tutorials</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../books/index.html">
+ <span class="menu-text">Book Reviews</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html">
+ <span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/patdmob/"><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/patrickdmobley/"><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/patdmob/"><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:patdmob@gmail.com"><i class="bi bi-envelope" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#api-deployment" id="toc-api-deployment" class="nav-link" data-scroll-target="#api-deployment">API Deployment</a></li>
+  <li><a href="#batch-processing" id="toc-batch-processing" class="nav-link" data-scroll-target="#batch-processing">Batch Processing</a></li>
+  <li><a href="#messaging-service" id="toc-messaging-service" class="nav-link" data-scroll-target="#messaging-service">Messaging Service</a></li>
+  <li><a href="#serverless" id="toc-serverless" class="nav-link" data-scroll-target="#serverless">Serverless</a></li>
+  <li><a href="#embedded-devices" id="toc-embedded-devices" class="nav-link" data-scroll-target="#embedded-devices">Embedded Devices</a></li>
+  <li><a href="#desktop-and-web-based-applications" id="toc-desktop-and-web-based-applications" class="nav-link" data-scroll-target="#desktop-and-web-based-applications">Desktop and Web-based Applications</a></li>
+  <li><a href="#hybrid-mode" id="toc-hybrid-mode" class="nav-link" data-scroll-target="#hybrid-mode">Hybrid Mode</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/patdmob/patdmob.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">How are machine learning models deployed?</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">blog</div>
+    <div class="quarto-category">MLops</div>
+    <div class="quarto-category">data science</div>
+    <div class="quarto-category">model deployment</div>
+    <div class="quarto-category">getting started</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    a high-level overview
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Patrick D. Mobley </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 12, 2022</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="deployment.png" class="img-fluid figure-img" style="width:25em"></p>
+</figure>
+</div>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Deploying machine learning models is an essential step in applying data science to real-world problems. After training a model, the next step is to deploy it in a way that allows it to be used by others. But how do you deploy a data science model, and what are the best ways to do it?</p>
+<p>There are different ways to deploy machine learning models, and the choice of deployment method depends on the specific requirements of a project. In this blog post, we will explore at a high-level the most common conceptual deployment methods for data science models and their use cases.</p>
+<p>This post will <em>not</em> go into any platform specific details but rather create conceptual buckets to understand the different ways to deploy a model. Please comment if you believe any are missing.</p>
+</section>
+<section id="api-deployment" class="level2">
+<h2 class="anchored" data-anchor-id="api-deployment">API Deployment</h2>
+<p>One common way to deploy machine learning models is through building an API. This involves creating an API that can receive input data, pass it through the model, and return the predicted output. This approach is suitable for models that require real-time prediction and easy integration with other systems. API deployment is also useful when working with applications that require continuous integration and deployment.</p>
+<p>Using <a href="https://fastapi.tiangolo.com/">FastAPI</a> is a great way to quickly build a working API with built-in documentation. I have used this to quickly create an API to serve predictions to other clients/services within the company. For instance, a mobile or webapp could call the API for a predicted price to display to a user. this makes it easy to serve predictions to multiple device types without creating separate model deployment code for each.</p>
+</section>
+<section id="batch-processing" class="level2">
+<h2 class="anchored" data-anchor-id="batch-processing">Batch Processing</h2>
+<p>Another approach to deploying machine learning models is batch processing. In this method, the model is run on a schedule, such as daily or weekly, to process large amounts of data. Batch processing is best suited for models that need to process large amounts of data or for models that don’t require real-time predictions.</p>
+<p>The batch processing method is underappreciated in my opinion. The fact is that you don’t need real-time predictions to get value out of machine learning. An excellent use-case I have used in the past is for data enrichment. This can be many things: cleaning up data, filling in missing values, creating embeddings for other models to use, or creating forecasts. For instance, you may publish a monthly or quarterly forecast for users of your product. These forecasts would be batch processed and stored in a database for further use.</p>
+</section>
+<section id="messaging-service" class="level2">
+<h2 class="anchored" data-anchor-id="messaging-service">Messaging Service</h2>
+<p>Messaging service deployment involves using a messaging service, such as RabbitMQ or Kafka, to handle asynchronous tasks. The model is deployed as a worker that listens to a queue and processes the data. This approach allows for easy scaling and real-time prediction.</p>
+<p>Depending on the infrastructure set up at your company, this might be an easy option for model deployment. It isn’t hard to set up a Kafka consumer to listen for requests and then publish those results by using a producer. The one caveat with this method is if the message you’re consuming from doesn’t have all the data your model needs, getting that data may make the service more complicated or slower to respond. For instance, if you want to add regional weather data you might need to use a slow database query before generating the producer message. An alternative is to pre-load the data into a caching database like Redis for a quick lookup. However, this complicates the deployment and adds another layer of maintenance and management.</p>
+</section>
+<section id="serverless" class="level2">
+<h2 class="anchored" data-anchor-id="serverless">Serverless</h2>
+<p>Serverless deployment involves using a serverless platform, such as AWS Lambda or Google Cloud Functions, to deploy the model. This approach allows for low-cost, easy scaling and eliminates the need for server management. This deployment method is useful for organizations that need to deploy models quickly and at a low cost.</p>
+<p>While I have not deployed a model using a serverless platform, there are many great tutorials out there that show how easy it can be. Here are a couple: one using <a href="https://towardsdatascience.com/machine-learning-model-as-a-serverless-endpoint-using-google-cloud-function-a5ad1080a59e">Google Cloud Functions</a>, and using <a href="https://towardsdatascience.com/serverless-deployment-of-machine-learning-models-on-aws-lambda-5bd1ca9b5c42">AWS Lambda</a>. Of course the platforms themselves have tutorials too (<a href="https://aws.amazon.com/blogs/compute/deploying-machine-learning-models-with-serverless-templates/">AWS</a>, <a href="https://cloud.google.com/blog/products/ai-machine-learning/how-to-serve-deep-learning-models-using-tensorflow-2-0-with-cloud-functions">GCP</a>).</p>
+</section>
+<section id="embedded-devices" class="level2">
+<h2 class="anchored" data-anchor-id="embedded-devices">Embedded Devices</h2>
+<p>Deploying the model on edge devices, such as IoT devices or mobile phones, is known as embedded device deployment. This approach is suitable for models that require low latency predictions or models that need to operate in low-bandwidth environments.</p>
+<p>While I’m fascinated by edge devices like RaspberryPi, I have yet to train and deploy a model on one. <a href="https://all3dp.com/2/raspberry-pi-machine-learning-simply-explained/">RaspberryPi Machine Learning Simply Explained</a> is a fun tutorial that turns a RaspberryPi into something… more.</p>
+</section>
+<section id="desktop-and-web-based-applications" class="level2">
+<h2 class="anchored" data-anchor-id="desktop-and-web-based-applications">Desktop and Web-based Applications</h2>
+<p>Desktop application deployment involves deploying the model as a standalone application that runs on a user’s desktop or laptop. This approach is suitable for models that require a user-friendly interface or models that need to be used by a small number of users. Web-based application deployment involves deploying the model as a web application, where users can interact with the model through a browser. This approach is suitable for models that need to be accessible to a large number of users.</p>
+<p>While technically another option to deploy a machine learning model, I think this deployment method is much less common. Realistically, a webapp likely calls a backend API for the predictions rather than being embedded into the app itself, but maybe I’m wrong here.</p>
+</section>
+<section id="hybrid-mode" class="level2">
+<h2 class="anchored" data-anchor-id="hybrid-mode">Hybrid Mode</h2>
+<p>Lastly, machine learning deployment can employ a mix of two or more(?) methods. Hybrid deployment involves deploying the model in multiple ways, such as an API, batch processing, and messaging service. This approach allows organizations to take advantage of the benefits of different deployment methods and is suitable for models that have different use cases. This could be for a variety of reasons such as different entry-points or different levels of quality. For instance, there are dictation software with online and offline modes. The online is better but requires a sufficient online connection.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>There are different ways to deploy data science models, and the choice of deployment method depends on the specific requirements of a project. The deployment method chosen must provide an optimal balance between cost, latency, and scalability. Personally, I have deployed using APIs, a messaging service, and batch processing. Have you deployed a data science model before? If so, what method did you use, and how did it work out for you? Let us know in the comments below.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="patdmob/patdmob.github.io" data-repo-id="R_kgDOI-1YBg" data-category="Announcements" data-category-id="DIC_kwDOI-1YBs4CUQ2J" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light_protanopia" data-lang="en" crossorigin="anonymous" data-loading="lazy" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+      <div class="nav-footer-center"><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+  </div>
+</footer>
+
+
+
+</body></html>
