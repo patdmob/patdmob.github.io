@@ -20,7 +20,3 @@ margin-top: -9px;
   max-width: unset !important;
   max-height: unset !important;
 } 
- 
-.navbar-brand > img {
-  max-height: 4em;
-}
