@@ -116,4 +116,6 @@ listing:
 
 While, I did have some trouble with this wildcard usage, I believe it was due to caching issues due to keeping `quarto preview` running while I made these changes. 
 
+Once you get the website the way you like, you can publish your site by following the [Publishing Basics](https://quarto.org/docs/publishing/) guide. I use [GitHub Pages](https://quarto.org/docs/publishing/github-pages.html) so I used that option with the `quarto publish` command for publishing. 
+
 Continue reading my journey of migrating to Quarto in my second post, [Making a Quarto Website Fancy](../2023-02-18-makeing-a-quarto-website-fancy), where I talk about improvements and customizations I have used to improve the website. 

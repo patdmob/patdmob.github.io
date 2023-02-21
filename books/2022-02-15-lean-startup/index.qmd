@@ -7,6 +7,8 @@ categories:
 - professional development
 - metrics
 - goal setting
+- minimal viable product (MVP)
+- experimentation
 date: '2022-02-15'
 rating: ⭐⭐⭐⭐⭐
 layout: post

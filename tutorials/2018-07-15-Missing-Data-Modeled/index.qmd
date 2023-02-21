@@ -3,6 +3,7 @@ categories:
 - tutorial
 - R programming
 - missing data
+- data science
 date: '2018-07-15'
 description: By creating a missing data model, you can understand the underlying data
   assumptions critical to your data science model.

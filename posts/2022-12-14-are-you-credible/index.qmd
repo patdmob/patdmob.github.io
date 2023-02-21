@@ -1,0 +1,51 @@
+---
+categories:
+- blog
+- success
+- credibility
+- people
+- school
+- experience
+date: '2022-12-14'
+description: the concept of credibility in a changing age
+layout: post
+author: Patrick D. Mobley
+title: "Are you credible?"
+toc: true
+# image: deployment.png
+draft: true
+---
+
+When I got out of the military and started applying for jobs, I realized I likely wouldn't get the job in data science I wanted. I didn't have job experience even though I had a Masters degree. I wasn't sure if I should go back to school and get a PhD, or get a transition job to get some experience.
+
+During this time, I thought a lot about Credibility. As we know, Credibility is what gets us a job, a position on a board, a guest speaker gig, YouTube success, or whatever really.
+
+It all comes down to "I have X credibility, so you should trust/listen to me." So if people want to do something, they need to work towards establishing enough Credibility to do that thing.
+
+There are three elements to Credibility:
+
+## Experience
+> "I have a track record of success. I've done this for a long time and seen it all."
+
+This one is pretty self-explanatory. Volunteer, create fun projects, join a community, etc.
+
+I was jumping carriers, so I had no experience. So how do you get a job, with no experience? I started making little projects, or examples of my work that I could showcase to prospective employers. I also ended up getting a transition job to further develop some of the necessary skills.
+
+## Credentials
+> "I have certificates, certifications, degrees, etc. proving I know what I'm talking about."
+
+People with lots of letters after their name are all about this kind of Credibility. It's the whole reason we go to school--to leave with a piece of paper that proves we had a certain experience.
+
+I had a Master's Degree in Applied Economics. I could either leverage that, get certificates, or delay my job hunt and go back and get a PhD. I decided to leverage my Master's while taking supplemental courses online.
+
+## Social Backing
+> "People recognize me as an expert. And I am an expert because otherwise, people wouldn't recognize me."
+
+This one is interesting because it is community driven and self-fulfilling to a degree. For example, people listen to former President Trump primarily because he has a following. Most influencers operate the same way. Trending videos get recommended more. Popularity creates its own popularity. And this popularity is its own kind of Credibility.
+
+To build this, I attended Meetup groups and volunteered to give talks on various topics. I wrote tutorials and posted blog articles. I networked on LinkedIn and in-person.
+
+
+Credibility is the combination of these three elements. There are interesting interactions between these three elements too. People with tons of Experience and Social Backing have been gifted degrees (Credentials) in honor of their contributions to the field. Famous scientists like Neil deGrasse Tyson started with a lot of Experience and Credentials but now have a lot of Social Backing too!
+
+What do you think? Is this concept helpful?
