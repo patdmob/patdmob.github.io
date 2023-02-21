@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Patrick D. Mobley">
+<meta name="dcterms.date" content="2018-05-15">
+<meta name="description" content="This notebook is a tutorial on using mlr to solve an imbalanced data problem: predicting employee attrition.">
+
+<title>Patrick D. Mobley - Imbalanced Classification with mlr</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../favicon-32x32.png" rel="icon" type="image/png">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-122946005-1', 'auto');
+
+ga('send', {
+  hitType: 'pageview',
+  'anonymizeIp': true,
+});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"headline",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  });
+});
+</script> 
+  
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../name.png" alt="Patrick Mobley" class="navbar-logo">
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../posts/index.html">
+ <span class="menu-text">Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../tutorials/index.html">
+ <span class="menu-text">Tutorials</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../books/index.html">
+ <span class="menu-text">Book Reviews</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html">
+ <span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/patdmob/"><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/patrickdmobley/"><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/patdmob/"><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:patdmob@gmail.com"><i class="bi bi-envelope" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#model-development" id="toc-model-development" class="nav-link" data-scroll-target="#model-development">Model Development</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li><a href="#interpretability" id="toc-interpretability" class="nav-link" data-scroll-target="#interpretability">Interpretability</a></li>
+  <li><a href="#production-model" id="toc-production-model" class="nav-link" data-scroll-target="#production-model">Production Model</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/patdmob/patdmob.github.io/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Imbalanced Classification with mlr</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">tutorial</div>
+    <div class="quarto-category">R programming</div>
+    <div class="quarto-category">imbalanced classification</div>
+    <div class="quarto-category">data science</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    This notebook is a tutorial on using <em>mlr</em> to solve an imbalanced data problem: predicting employee attrition.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Patrick D. Mobley </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 15, 2018</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<section id="background" class="level3">
+<h3 class="anchored" data-anchor-id="background">Background</h3>
+<p>This notebook presents a reference implementation of an imbalanced data problem, namely predicting employee attrition. We’ll use <a href="https://mlr-org.github.io/mlr/index.html"><code>mlr</code></a>, a package designed to provide an infrastructure for Machine Learning in R. Additionally, there is a <a href="../2018-05-16-Vanilla-vs-SMOTE">companion post</a> which investigates the effectiveness of SMOTE compared to non-SMOTE models.</p>
+<p>Unfortunately, the data is proprietary and we cannot disclose the details of the data with outside parties. But the field represented by this data sees 20% annual turnover in employees. Each employee separation costs roughly $20K. Meaning, a 25% reduction to employee attrition results in an annual savings of over $400K.</p>
+<p>Using a predictive model, HR organizations can build on the data of today to anticipate the events of tomorrow. This forward notice offers the opportunity to respond by developing a tailored retention strategy to retain employees before they jump ship.</p>
+<p>This work was part of a one month PoC for an Employee Attrition Analytics project at Honeywell International. I presented this notebook at a Honeywell internal data science meetup group and received permission to post it publicly. I would like to thank Matt Pettis (Managing Data Scientist), Nabil Ahmed (Solution Architect), Kartik Raval (Data SME), and Jason Fraklin (Business SME). Without their mentorship and contributions, this project would not have been possible.</p>
+</section>
+<section id="setup" class="level3">
+<h3 class="anchored" data-anchor-id="setup">Setup</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)    <span class="co"># Data manipulation</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlr)          <span class="co"># Modeling framework</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(parallelMap)  <span class="co"># Parallelization</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart.plot)   <span class="co"># Decision Tree Visualization</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(parallel)     <span class="co"># To detect # of cores</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Parallelization</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">parallelStartSocket</span>(<span class="fu">detectCores</span>())</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading Data</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"prep_EmployeeAttrition.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="data" class="level3">
+<h3 class="anchored" data-anchor-id="data">Data</h3>
+<p>Since the primary purpose of this notebook is modeling employee attrition, we won’t go into the data preprocessing steps; but they involved sql querying, reformatting, cleaning, filtering, and variable creation.</p>
+<p>The loaded data represents a snapshot in time, aggregating 52-weeks of history into performance and summary metrics. To build a predictive model, we choose the end of this 52-week period to be at least 4 weeks in the past. Finally we created a variable indicating if an employee left in the following four week period.</p>
+<p>To get summary statistics within <code>mlr</code>, you can use <code>summarizeColumns()</code>:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarizeColumns</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><em>Output not shown for proprietary reasons.</em></p>
+<section id="data-structure" class="level4">
+<h4 class="anchored" data-anchor-id="data-structure">Data Structure</h4>
+<p>Employees: 2852 <br> Model Features: 15 <br> Target Variable: <em>Left4wk</em> <br></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="st">`</span><span class="at">Total Employees</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">n</span>(),</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">Attrition Count</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sum</span>(Left4wk<span class="sc">==</span><span class="st">"Left"</span>),</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">Attrition Percent</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(Left4wk<span class="sc">==</span><span class="st">"Left"</span>)) <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Total Employees</th>
+<th style="text-align: right;">Attrition Count</th>
+<th style="text-align: right;">Attrition Percent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2852</td>
+<td style="text-align: right;">201</td>
+<td style="text-align: right;">0.0704769</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="considerations" class="level4">
+<h4 class="anchored" data-anchor-id="considerations">Considerations</h4>
+<p><strong>Concern:</strong> Employee attrition is a imbalanced classification problem, meaning that the group of interest is relatively rare. This can cause models to overclassify the majority group in an effort to get better accuracy. After all, if predict every employee will stay, we can get an accuracy of 93%, but this is not a useful model. <br> <strong>Solution:</strong> There are two general methods to overcome this issue: sampling techniques and skew-insensitive classifiers. Synthetic Minority Oversampling TEchnique (SMOTE) is a sampling technique well suited for employee attrition. We’ll use this method to create a balanced model for predicting employee attrition.</p>
+</section>
+</section>
+</section>
+<section id="model-development" class="level2">
+<h2 class="anchored" data-anchor-id="model-development">Model Development</h2>
+<p>We’ll use <code>mlr</code> to help us setup the models, run cross-validation, perform hyperparameter tuning, and measure performance of the final models.</p>
+<section id="model-setup" class="level3">
+<h3 class="anchored" data-anchor-id="model-setup">Model Setup</h3>
+<section id="defining-the-task" class="level4">
+<h4 class="anchored" data-anchor-id="defining-the-task">Defining the Task</h4>
+<p>Just as <code>dplyr</code> provides a grammar for manipulating data frames, <code>mlr</code> provides a grammar for data modeling. The first grammatical object is the <em>task</em>. A <em>task</em> is an object that defines at minimum the data and the target.</p>
+<p>For this project, our task is to predict employee attrition 4 weeks out. Here we also create a holdout test and train dataset for each task.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining Task</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>tsk_4wk <span class="ot">&lt;-</span> <span class="fu">makeClassifTask</span>(<span class="at">id =</span> <span class="st">"4 week prediction"</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data =</span> data <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(<span class="sc">!!</span> exclude)),</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">target =</span> <span class="st">"Left4wk"</span>,  <span class="co"># Must be a factor variable</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">positive =</span> <span class="st">"Left"</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                       )</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>tsk_4wk <span class="ot">&lt;-</span> <span class="fu">mergeSmallFactorLevels</span>(tsk_4wk)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating 4 week holdout datasets</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>ho_4wk <span class="ot">&lt;-</span> <span class="fu">makeResampleInstance</span>(<span class="st">"Holdout"</span>, tsk_4wk, <span class="at">stratify =</span> <span class="cn">TRUE</span>)   <span class="co"># Default 1/3rd</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>tsk_train_4wk <span class="ot">&lt;-</span> <span class="fu">subsetTask</span>(tsk_4wk, ho_4wk<span class="sc">$</span>train.inds[[<span class="dv">1</span>]])</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>tsk_test_4wk <span class="ot">&lt;-</span> <span class="fu">subsetTask</span>(tsk_4wk, ho_4wk<span class="sc">$</span>test.inds[[<span class="dv">1</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note that the target variable needs to be a factor variable. For Python users, a factor variable is a data type within R specific for representing categorical variables. It can represent information as ordered (e.g.&nbsp;small, medium, large) or unordered (e.g.&nbsp;red, green, blue) and models can take advantage of these relationships. Variables in this dataset were reformatted to factor as part of the preprocessing.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>train_target <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="fu">getTaskTargets</span>(tsk_train_4wk))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>train_target</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>  Left Stayed
+   134   1767</code></pre>
+<p>Again, we are dealing with an imbalanced classification problem. After splitting the data, our training sample has 134 employees that left out of 1901 total employees.</p>
+<p>We’ll use the SMOTE technique described earlier to synthetically generate more employees that left. This will result in a more balanced dataset for training. However, since the test set is still imbalanced, we need to consider balanced performance measures like balanced accuracy and F1 when evaluating and tuning our models.</p>
+</section>
+<section id="defining-the-learners" class="level4">
+<h4 class="anchored" data-anchor-id="defining-the-learners">Defining the Learners</h4>
+<p>Next, we’ll use three different models to predict employee attrition. The advantage of this approach is that some models perform better on certain problems. By using a few different models were more likely to use a good model for this problem. Also, while some models might provide a better answer, they can be more difficult to explain how or why they work. By using multiple models, we should be able to provide both a predictive and explainable answer. The best of both worlds.</p>
+<p>Here we define the three models we will use to predict employee attrition. Notice they are wrapped in a SMOTE function.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>lrns <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">makeSMOTEWrapper</span>(<span class="fu">makeLearner</span>(<span class="st">"classif.logreg"</span>, <span class="at">predict.type =</span> <span class="st">"prob"</span>),</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">sw.rate =</span> <span class="dv">18</span>, <span class="at">sw.nn =</span> <span class="dv">8</span>),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">makeSMOTEWrapper</span>(<span class="fu">makeLearner</span>(<span class="st">"classif.rpart"</span>, <span class="at">predict.type =</span> <span class="st">"prob"</span>),</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">sw.rate =</span> <span class="dv">18</span>, <span class="at">sw.nn =</span> <span class="dv">8</span>),</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">makeSMOTEWrapper</span>(<span class="fu">makeLearner</span>(<span class="st">"classif.randomForest"</span>, <span class="at">predict.type =</span> <span class="st">"prob"</span>),</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">sw.rate =</span> <span class="dv">18</span>, <span class="at">sw.nn =</span> <span class="dv">8</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="pause-lets-review-the-process-flow" class="level4">
+<h4 class="anchored" data-anchor-id="pause-lets-review-the-process-flow">Pause: Let’s review the process flow</h4>
+<p><img src="./Employee Attrition Model.png" class="img-fluid"></p>
+<p>The order of operations is important. If you SMOTE before splitting the data, then you’ve effectively polluted the training set with information from the test set! <code>mlr</code> has a <code>smote()</code> function, but that works by redefining the task and will happen before the resampling split. Therefore, we wrapped the smote around the learner which is applied after the resampling split.</p>
+</section>
+<section id="defining-the-resampling-strategy" class="level4">
+<h4 class="anchored" data-anchor-id="defining-the-resampling-strategy">Defining the Resampling Strategy</h4>
+<p>To ensure extensible models to new data, we’ll use cross-validation to guard against overfitting.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>folds <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>rdesc <span class="ot">&lt;-</span> <span class="fu">makeResampleDesc</span>(<span class="st">"CV"</span>, <span class="at">iters =</span> folds, <span class="at">stratify =</span> <span class="cn">TRUE</span>) <span class="co"># stratification with respect to the target</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We use 20 folds here, but I’d recommend fewer during the exploratory phase since more folds require more computation.</p>
+</section>
+<section id="model-cross-validation" class="level4">
+<h4 class="anchored" data-anchor-id="model-cross-validation">Model Cross-validation</h4>
+<p>Let’s run a quick cross-validation iteration to see how the models perform before tuning them.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>bchmk <span class="ot">&lt;-</span> <span class="fu">benchmark</span>(lrns,</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                  tsk_train_4wk,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                  rdesc, <span class="at">show.info =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">measures =</span> <span class="fu">list</span>(acc, bac, auc, f1))</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>bchmk_perf <span class="ot">&lt;-</span> <span class="fu">getBMRAggrPerformances</span>(bchmk, <span class="at">as.df =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>bchmk_perf <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>task.id) <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table class="table">
+<colgroup>
+<col style="width: 32%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">learner.id</th>
+<th style="text-align: right;">acc.test.mean</th>
+<th style="text-align: right;">bac.test.mean</th>
+<th style="text-align: right;">auc.test.mean</th>
+<th style="text-align: right;">f1.test.mean</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">classif.logreg.smoted</td>
+<td style="text-align: right;">0.6500867</td>
+<td style="text-align: right;">0.7478255</td>
+<td style="text-align: right;">0.7899618</td>
+<td style="text-align: right;">0.2610063</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">classif.rpart.smoted</td>
+<td style="text-align: right;">0.7428074</td>
+<td style="text-align: right;">0.7618259</td>
+<td style="text-align: right;">0.8358594</td>
+<td style="text-align: right;">0.3027377</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">classif.randomForest.smoted</td>
+<td style="text-align: right;">0.8695530</td>
+<td style="text-align: right;">0.7185079</td>
+<td style="text-align: right;">0.8700374</td>
+<td style="text-align: right;">0.3754485</td>
+</tr>
+</tbody>
+</table>
+<p>Not bad; the best model has an accuracy of 87%. By looking at different, sometimes competing, measures we can better gauge the performance of the models. Above we’ve computed accuracy, balanced accuracy, AUC, and F1.</p>
+<p>Shown below are boxplots showing the performance measure distribution for each of the 20 cross-validation iterations. All the models seem to perform reasonably well when applied to new data.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotBMRBoxplots</span>(bchmk, <span class="at">measure =</span> acc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="./unnamed-chunk-8-1.png" class="img-fluid"></p>
+<p>However when we look at balanced accuracy, we see a performance drop. Balanced accuracy gives equal weight to the relative proportion of each class (left vs stayed) resulting in a more difficult metric.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotBMRBoxplots</span>(bchmk, <span class="at">measure =</span> bac)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="./unnamed-chunk-9-1.png" class="img-fluid"></p>
+<p>With this we’ve built some models, but now we need to refine them. Let’s see if we can improve performance by tuning the hyperparameters.</p>
+</section>
+</section>
+<section id="tune-hyperparameters" class="level3">
+<h3 class="anchored" data-anchor-id="tune-hyperparameters">Tune Hyperparameters</h3>
+<p>Tuning works by optimizing the cross-validated aggregated performance metric like accuracy or balanced accuracy. This mitigates overfitting because each fold needs to perform reasonable well as to not pull down the aggregation. For this imbalanced data problem, we’ll tune using both F1 score and balanced accuracy.</p>
+<p>The SMOTE algorithm is defined by the parameters <em>rate</em> and <em>nearest neighbors</em>. <em>Rate</em> defines how much to oversample the minority class. <em>Nearest neighbors</em> defines how many nearest neighbors to consider. For more information about this algorithm check out <a href="https://limnu.com/smote-visualization-for-data-science/">this post</a> and the <a href="https://arxiv.org/abs/1106.1813">original paper</a>. Since SMOTE has tunable hyperparameters, we’ll tune the logistic regression too. In addition, decision trees and randomForests have model specific hyperparameters. If you’re unsure what hyperparameters are tunable, us <code>getParamSet(&lt;learner&gt;)</code> to find out.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Logistic</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>logreg_ps <span class="ot">&lt;-</span> <span class="fu">makeParamSet</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">makeIntegerParam</span>(<span class="st">"sw.rate"</span>, <span class="at">lower =</span> 8L, <span class="at">upper =</span> 28L)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>              ,<span class="fu">makeIntegerParam</span>(<span class="st">"sw.nn"</span>, <span class="at">lower =</span> 2L, <span class="at">upper =</span> 8L)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>              )</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># DecisionTree</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>rpart_ps <span class="ot">&lt;-</span> <span class="fu">makeParamSet</span>(</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>              <span class="fu">makeIntegerParam</span>(<span class="st">"sw.rate"</span>, <span class="at">lower =</span> 8L, <span class="at">upper =</span> 28L)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>              ,<span class="fu">makeIntegerParam</span>(<span class="st">"sw.nn"</span>, <span class="at">lower =</span> 2L, <span class="at">upper =</span> 8L)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>              ,<span class="fu">makeIntegerParam</span>(<span class="st">"minsplit"</span>,<span class="at">lower =</span> 10L, <span class="at">upper =</span> 50L)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>              ,<span class="fu">makeIntegerParam</span>(<span class="st">"minbucket"</span>, <span class="at">lower =</span> 5L, <span class="at">upper =</span> 70L)</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>              ,<span class="fu">makeNumericParam</span>(<span class="st">"cp"</span>, <span class="at">lower =</span> <span class="fl">0.005</span>, <span class="at">upper =</span> .<span class="dv">05</span>)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>              )</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co"># RandomForest</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>randomForest_ps <span class="ot">&lt;-</span> <span class="fu">makeParamSet</span>(</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>              <span class="fu">makeIntegerParam</span>(<span class="st">"sw.rate"</span>, <span class="at">lower =</span> 8L, <span class="at">upper =</span> 28L)</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>              ,<span class="fu">makeIntegerParam</span>(<span class="st">"sw.nn"</span>, <span class="at">lower =</span> 2L, <span class="at">upper =</span> 8L)</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>              ,<span class="fu">makeIntegerParam</span>(<span class="st">"ntree"</span>, <span class="at">lower =</span> 50L, <span class="at">upper =</span> 600L)</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>              ,<span class="fu">makeIntegerParam</span>(<span class="st">"mtry"</span>, <span class="at">lower =</span> 1L, <span class="at">upper =</span> 20L)</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>              ,<span class="fu">makeIntegerParam</span>(<span class="st">"nodesize"</span>, <span class="at">lower =</span> 4L, <span class="at">upper =</span> 50L)</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>              )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>After defining the bounds of each hyperparameter, we define the tuning control to intelligently search the space for an optimal hyperparameter set. <a href="http://iridia.ulb.ac.be/irace/">Irace</a> and <a href="http://mlr-org.github.io/mlrMBO/">MBO</a> are different methods for optimizing hyperparameters. After tuning each model, we update the learner with the optimal configuration for future training.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ctrl = makeTuneControlMBO(budget=200)</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>ctrl <span class="ot">&lt;-</span> <span class="fu">makeTuneControlIrace</span>(<span class="at">maxExperiments =</span> 400L)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>logreg_tr <span class="ot">&lt;-</span> <span class="fu">tuneParams</span>(lrns[[<span class="dv">1</span>]], tsk_train_4wk, rdesc, <span class="fu">list</span>(f1), logreg_ps, ctrl)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>lrns[[<span class="dv">1</span>]] <span class="ot">&lt;-</span> <span class="fu">setHyperPars</span>(lrns[[<span class="dv">1</span>]], <span class="at">par.vals=</span>logreg_tr<span class="sc">$</span>x)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>rpart_tr <span class="ot">&lt;-</span> <span class="fu">tuneParams</span>(lrns[[<span class="dv">2</span>]], tsk_train_4wk, rdesc, <span class="fu">list</span>(f1), rpart_ps, ctrl)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>lrns[[<span class="dv">2</span>]] <span class="ot">&lt;-</span> <span class="fu">setHyperPars</span>(lrns[[<span class="dv">2</span>]], <span class="at">par.vals=</span>rpart_tr<span class="sc">$</span>x)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>randomForest_tr <span class="ot">&lt;-</span> <span class="fu">tuneParams</span>(lrns[[<span class="dv">3</span>]], tsk_train_4wk, rdesc, <span class="fu">list</span>(f1), randomForest_ps, ctrl)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>lrns[[<span class="dv">3</span>]] <span class="ot">&lt;-</span> <span class="fu">setHyperPars</span>(lrns[[<span class="dv">3</span>]], <span class="at">par.vals=</span>randomForest_tr<span class="sc">$</span>x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>It’s important to know that for each iteration of the tuning process, a full cross-validation resampling of 20 folds occurs.</p>
+</section>
+<section id="measuring-performance" class="level3">
+<h3 class="anchored" data-anchor-id="measuring-performance">Measuring Performance</h3>
+<p>Now that we’ve tuned our hyperparameters, we need to train on all training data and assess model performance against the holdout. This will give us some idea how the model will perform on new data.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>bchmk <span class="ot">&lt;-</span> <span class="fu">benchmark</span>(lrns,</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                  tsk_4wk,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                  ho_4wk, <span class="at">show.info =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">measures =</span> <span class="fu">list</span>(acc, bac, auc, f1))</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>bchmk_perf <span class="ot">&lt;-</span> <span class="fu">getBMRAggrPerformances</span>(bchmk, <span class="at">as.df =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>bchmk_perf <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>task.id) <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table class="table">
+<colgroup>
+<col style="width: 32%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">learner.id</th>
+<th style="text-align: right;">acc.test.mean</th>
+<th style="text-align: right;">bac.test.mean</th>
+<th style="text-align: right;">auc.test.mean</th>
+<th style="text-align: right;">f1.test.mean</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">classif.logreg.smoted</td>
+<td style="text-align: right;">0.7108307</td>
+<td style="text-align: right;">0.8099716</td>
+<td style="text-align: right;">0.8424056</td>
+<td style="text-align: right;">0.3107769</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">classif.rpart.smoted</td>
+<td style="text-align: right;">0.8422713</td>
+<td style="text-align: right;">0.7220403</td>
+<td style="text-align: right;">0.7973847</td>
+<td style="text-align: right;">0.3421053</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">classif.randomForest.smoted</td>
+<td style="text-align: right;">0.8811777</td>
+<td style="text-align: right;">0.7636591</td>
+<td style="text-align: right;">0.9047494</td>
+<td style="text-align: right;">0.4263959</td>
+</tr>
+</tbody>
+</table>
+<p>One advantage of using <code>mlr</code>’s <code>benchmark()</code> function is that we can create easy comparisons between the three models. Here is the traditional Area Under the Curve (ROC) visualizing one measure of classification performance. The model performs better as the curve stretches towards the upper left thereby maximizing the area.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df_4wk <span class="ot">&lt;-</span> <span class="fu">generateThreshVsPerfData</span>(bchmk,</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">measures =</span> <span class="fu">list</span>(fpr, tpr, mmce, ppv, tnr, fnr),</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">task.id =</span> <span class="st">'4 week prediction'</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plotROCCurves</span>(df_4wk) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Four week attrition model ROC curves"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="./unnamed-chunk-12-1.png" class="img-fluid"></p>
+<p>Right now, we are testing the model against the holdout. But after we finish modeling, we’ll train a model using all the data. To understand how well the model integrates new data, we’ll create the learning curve for various measures of performance.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>rs_cv5 <span class="ot">&lt;-</span> <span class="fu">makeResampleDesc</span>(<span class="st">"CV"</span>, <span class="at">iters =</span> <span class="dv">5</span>, <span class="at">stratify =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>lc_4wk <span class="ot">&lt;-</span> <span class="fu">generateLearningCurveData</span>(<span class="at">learners =</span> lrns,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>                               <span class="at">task =</span> tsk_4wk,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>                               <span class="at">percs =</span> <span class="fu">seq</span>(<span class="fl">0.2</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.2</span>),</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>                               <span class="at">measures =</span> <span class="fu">list</span>(acc, bac, auc, f1),</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>                               <span class="at">resampling =</span> rs_cv5,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>                               <span class="at">stratify =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>                               <span class="at">show.info =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotLearningCurve</span>(lc_4wk, <span class="at">facet.wrap.ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Four week prediction learning curve"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="./unnamed-chunk-14-1.png" class="img-fluid"></p>
+<p>These plots show that the model may benefit from additional data but with decreasing marginal gains. If we want better performance, more data will only help so much–we’ll need better features.</p>
+</section>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
+<section id="confusion-matrices" class="level3">
+<h3 class="anchored" data-anchor-id="confusion-matrices">Confusion Matrices</h3>
+<section id="logistic" class="level4">
+<h4 class="anchored" data-anchor-id="logistic">Logistic</h4>
+<pre><code>        predicted
+true     Left Stayed -err.-
+  Left     58      9      9
+  Stayed  261    623    261
+  -err.-  261      9    270
+
+      acc       bac        f1
+0.7160883 0.7852114 0.3005181</code></pre>
+</section>
+<section id="decision-tree" class="level4">
+<h4 class="anchored" data-anchor-id="decision-tree">Decision Tree</h4>
+<pre><code>        predicted
+true     Left Stayed -err.-
+  Left     39     28     28
+  Stayed  122    762    122
+  -err.-  122     28    150
+
+      acc       bac        f1
+0.8422713 0.7220403 0.3421053</code></pre>
+</section>
+<section id="randomforest" class="level4">
+<h4 class="anchored" data-anchor-id="randomforest">randomForest</h4>
+<pre><code>        predicted
+true     Left Stayed -err.-
+  Left     42     25     25
+  Stayed   83    801     83
+  -err.-   83     25    108
+
+      acc       bac        f1
+0.8864353 0.7664871 0.4375000</code></pre>
+<p>These results were computed by running each model on the holdout dataset to simulate new data. Therefore, we should expect similar outcomes from a live implemented production model. Since the randomForest performed the best, we’ll use this model to train our production model but we could also create an ensemble using all three.</p>
+</section>
+</section>
+</section>
+<section id="interpretability" class="level2">
+<h2 class="anchored" data-anchor-id="interpretability">Interpretability</h2>
+<p>There are many ways to extract information from the results of a predictive model which could be valuable to the business. One simple way is to simply use the coefficients from the logistic regression to show any linear trends.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">getLearnerModel</span>(mdl_4wk_logistic, <span class="at">more.unwrap =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><em>Output not shown for proprietary reasons.</em></p>
+<p>We can also use a decision tree to visualize how the model works and potential reasons why people leave.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rpart.plot</span>(<span class="fu">getLearnerModel</span>(mdl_4wk_decisionTree, <span class="at">more.unwrap=</span><span class="cn">TRUE</span>),</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">extra=</span><span class="dv">104</span>,</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">box.palette=</span><span class="st">"RdGy"</span>,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">branch.lty=</span><span class="dv">3</span>,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">shadow.col=</span><span class="st">"gray"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><em>Output not shown for proprietary reasons.</em></p>
+<p>Feature importance plots can also provide valuable insight into how models work. The following code uses a method called permutation feature importance which measures the impact of randomly shuffling the values of a feature.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>impt_4wk <span class="ot">&lt;-</span> <span class="fu">generateFilterValuesData</span>(tsk_4wk,</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">method =</span> <span class="st">"permutation.importance"</span>,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">imp.learner =</span> lrns[[<span class="dv">3</span>]], <span class="at">measure =</span> mmce)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFilterValues</span>(impt_4wk) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Feature Importance: 4 Week Prediction"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><em>Output not shown for proprietary reasons.</em></p>
+<p>Many other methods exist to gain interpretability from blackbox models. A few such methods are <a href="https://arxiv.org/abs/1705.07874">SHAP</a> and <a href="https://arxiv.org/abs/1602.04938">LIME</a>. Additionally, we can feed the results of these models into a clustering algorithm to group similar types of attrition. If distinct groups emerge, we can create profiles and describe what defines each group.</p>
+</section>
+<section id="production-model" class="level2">
+<h2 class="anchored" data-anchor-id="production-model">Production Model</h2>
+<p>Finally, we train on all the data to get a model to use on real world data.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>mdl_4wk_final <span class="ot">&lt;-</span> <span class="fu">train</span>(lrns[[<span class="dv">3</span>]], tsk_4wk)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If we were to deploy this model, we’d continue by setting up a model monitoring framework. Part of this consists of tests to alert on changes to:</p>
+<ul>
+<li>Data
+<ul>
+<li>Continues to flow properly (both input and output)</li>
+<li>Inputs are statistically similar to training data</li>
+</ul></li>
+<li>Model
+<ul>
+<li>Performance</li>
+<li>Computational load (i.e.&nbsp;is the model taking too long to run for the service?)</li>
+</ul></li>
+</ul>
+<p>For a more detailed list of tests for machine learning production systems, check out the paper by Google researchers, “<a href="https://www.eecs.tufts.edu/~dsculley/papers/ml_test_score.pdf">What’s your ML Test Score? A rubric for ML production systems</a>”.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parallelStop</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>Stopped parallelization. All cleaned up.</code></pre>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="patdmob/patdmob.github.io" data-repo-id="R_kgDOI-1YBg" data-category="Announcements" data-category-id="DIC_kwDOI-1YBs4CUQ2J" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light_protanopia" data-lang="en" crossorigin="anonymous" data-loading="lazy" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+      <div class="nav-footer-center"><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+  </div>
+</footer>
+
+
+
+</body></html>
