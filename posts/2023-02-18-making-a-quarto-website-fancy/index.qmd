@@ -21,24 +21,58 @@ Whether you're new to [Quarto](https://quarto.org/) or recently [migrated from F
 
 In this blog post, I will share some tips and tricks that I've discovered to help you customize your Quarto blog and improve its functionality and engagement.
 
-### Changing the template
+:::{.callout-note collapse=true}
+Most of this information is covered well within the Quarto [Guide](https://quarto.org/docs/guide/) or [Reference](https://quarto.org/docs/reference/) material. That said, in many cases I provide addition examples or screenshots. I also spent the time searching and organizing so that you can save time and get the information you need right here.
+:::
 
-Changed the bootstrap template
-there are many [options](https://bootswatch.com/).
+### Choosing a template
 
- 
+You can change the site template and choose from many [options](https://bootswatch.com/). Plus, it's very easy. You can even create your own, however this will require some html and css knowledge. 
 
-### More social links
+Within the `_quarto.yml`, you just specify a different theme:
 
+```yml
+format:
+  html:
+    theme: lux   
+    # Here are some bootstrap theme options:
+    #   default, cerulean, cosmo, cyborg, darkly, flatly, journal, 
+    #   litera, lumen, lux, materia, minty, morph, pulse, quartz,
+    #   sandstone, simplex, sketchy, slate, solar, spacelab, superhero,
+    #   united, vapor, yeti, zephyr
+    css: styles.css
+```
+Check out the [Quarto documentation](https://quarto.org/docs/output-formats/html-themes.html) for more information.
 
-### Adding pages to your website
+### Adding top navigation to your website
+
+Adding different sections to your 
+
+### Social links
+
+You can add links to your social media sites within the Navbar and on any page (commonly the "About" page), or in the site footer. 
+
+To add links on your Navbar you just edit the `_quarto.yml` `navbar:` property like this:
+
+```yml
+  - icon: twitter
+    href: https://twitter.com/someones/
+  - icon: linkedin
+    href: https://www.linkedin.com/in/someones/
+  - icon: github
+    href: https://github.com/someones/
+  - icon: envelope
+    href: mailto:someones@gmail.com
+```
+You can get more information about this by going to the [Navbar Tools](https://quarto.org/docs/prerelease/1.3/website-nav.html#navbar-tools), [about](https://quarto.org/docs/websites/website-about.html), or [page-footer](https://quarto.org/docs/websites/website-navigation.html#page-footer) documentation. 
 
 ### Changing the layout
 
+Because this is a blog, the content (post, article, tutorial, project, review, etc.) can be organized within different [listings](https://quarto.org/docs/websites/website-listings.html). 
 
-### Adding embedded presentations
+### Embedding presentations
 
-Let's say you've given some great talks and want share them on your website. I've seen many people use downloadable links or they write companion tutorials (like I did in [Missing Data Modeled](../../tutorials/2018-07-15-Missing-Data-Modeled)) to share their content. But that takes a lot of work and there's a better way. You can use `.qmd` to create an html Revealjs presentation and embed this within a post. Using the Revealjs format, you can even include all of your talking points in the notes.
+Let's say you've given some great talks and want share them on your website. I've seen many people use downloadable links or they write companion tutorials (like I did in [Missing Data Modeled](../../tutorials/2018-07-15-Missing-Data-Modeled)) to share content. But a link just doesn't do justice to the presentation and rewriting content takes a lot of work. Thankfully, there's a better way. You can use `.qmd` to create an html Revealjs presentation and embed this within a post. Using the Revealjs format, you can even include all of your talking points [in the notes](https://quarto.org/docs/presentations/revealjs/presenting.html#speaker-view).
 
 1. Create a blank post
 2. Add content into the same directory as the blank post 
@@ -67,11 +101,13 @@ resources:
 
 ```
 
-Now, you've got a working presentation within your site. Users can make it go full screen, download, or export as a PDF using the menu bar. It should look something like this: 
+Now, you've got a working presentation within your site. Users can make it go full screen, download, or export as a PDF using the menu bar. It should look something like this:  
+
 ![](embedded-slideshow.png){width="30em" fig-align="center"}
 
+If you're looking for a presentation to inspire, check out the [Quarto Reporting](https://github.com/jthomasmock/quarto-reporting) presentation. The author, Tom Mock utilizes a variety of features to deliver a truly great presentation. 
 
-### Adding videos
+### Embedding videos
 
 Adding videos to your site is really easy as explained [here](https://quarto.org/docs/authoring/videos.html). Basically, you use the `{{{< video >}}}` shortcode. For example:
 
@@ -79,7 +115,7 @@ Adding videos to your site is really easy as explained [here](https://quarto.org
 {{< video https://www.youtube.com/embed/wo9vZccmqwc >}}
 ```
 
-### Adding custom CSS buttons
+### Custom CSS buttons
 And of course if you want to customize anything, knowledge of web development will help you out. I added a "See All" button by the pagination page-links. 
 
 Unfortunately, the button was mis-aligned with the pagination page-links so adding the following to the `styles.css` solve the problem. 
@@ -107,16 +143,16 @@ margin-top: -9px;
 
 
 
-### Adding a favicon
+### Favicon
 I used the free favicon generator: https://favicon.io/
 
-### Adding your own icon
+### Logo branding
 
 changing the navbar icon. I used [Excalidraw](https://excalidraw.com/) to create my website icon. 
 
 ![Navbar with title](navbar-with-title.png){height="9em" fig-align="center"}
 
-![Navbar with logo](navar-with-logo.png){height="12em" fig-align="center"}
+![Navbar with logo](navbar-with-logo.png){height="12em" fig-align="center"}
 
 ```css
 .navbar-logo {
@@ -128,21 +164,29 @@ changing the navbar icon. I used [Excalidraw](https://excalidraw.com/) to create
 
 The Quarto website itself does this through [a similar mechanism](https://github.com/quarto-dev/quarto-web/blob/main/styles.css#L36).  
 
-### Add github links
+### Github links
 
+:::: {.columns}
+::: {.column}
 Many websites have sidebar content to "Report an issue" or "Edit this page". 
 
-I followed the directions [here](https://quarto.org/docs/websites/website-navigation.html#github-links). 
+I followed the directions [here](https://quarto.org/docs/websites/website-navigation.html#github-links) and added the following code to the `_quarto.yml` file:
 
-to the `_quarto.yml` file:
+:::
+
+::: {.column}
+![](github-issue.png "'Report an issue' Github link"){fig-alt="Image of 'Report an issue' Github link" width="15em" fig-align="center"}
+:::
+::::
 
 ```yml
   repo-url: https://github.com/patdmob/patdmob.github.io
-  repo-actions: [issue]
+  repo-actions: [issue] 
 ```
 
+The Github link only appears on pages that 
 
-### Adding comments
+### Comments
 
 One feature that many bloggers find helpful is the ability to allow comments on their posts. This not only allows readers to share their thoughts and engage with the content, but also provides valuable feedback for the blogger.
 
@@ -180,11 +224,29 @@ Instructions:
 
 
 
-### Adding a subscription feature
+### Subscription feature
 
-At the time of writing this, I haven't added a subscription feature. But there are some great resources to do so.
-  - Excellent post on [adding subscriptions to a Quarto site](https://forbo7.github.io/forblog/posts/7_blog_subscriptions.html)
-https://albert-rapp.de/posts/13_quarto_blog_writing_guide/13_quarto_blog_writing_guide.html#newsletter
+At the time of writing this, I haven't added a subscription feature. But many people have done it in a few different ways. Here are some resources if you want to include a subscription feature on your blog:
+
+- Excellent post on [adding subscriptions to a Quarto site](https://forbo7.github.io/forblog/posts/7_blog_subscriptions.html)  
+- Albert Rapp's Quarto guide also touches on this [here](https://albert-rapp.de/posts/13_quarto_blog_writing_guide/13_quarto_blog_writing_guide.html#newsletter)
+- Quarto's documentation also has a [section](https://quarto.org/docs/websites/website-blog.html#subscriptions) to set up subscriptions.
+
+### Includes
+
+This is a really neat feature likely hailing from the C programming language. Basically, you can include references to other files throughout your document. The text/code in these other files will run as if it were in the main file. 
+
+I've used this feature a lot when making Rmarkdown reports in the past. It's really useful to apply the DRY (Don't Repeat Yourself) of programming. So in a multi-post blog series, I could use the same starter code to load the data to for charts and tables within qmd files. 
+
+Another use case is for different document formats. For instance, you want to make a presentation and a post of the same content. Rather than storing the code in two places, you could store the code in these  **include** files. When you need to update the code, the changes automatically update for both formats. While you might have more files, you'll have fewer places to update code, leading to fewer corrections and potential mistakes. 
+
+To include a file, add the `{{{< include >}}}` shortcode at the location in your document where you want it included. Here's an example of including the `_content.qmd` file within the document:
+
+``` {.markdown shortcodes="false"}
+{{< include _content.qmd >}}
+```
+
+For more information about the **include** feature in Quarto checkout of the [include documentation](https://quarto.org/docs/authoring/includes.html). 
 
 ## Inspiration
 
@@ -193,5 +255,6 @@ Here are a few Quarto blogs which have inspired me. I hope they can inspire you 
 - [Salman Naqvi](https://forbo7.github.io/)
 - [Mike Mahoney](https://www.mm218.dev/)
 - [Bea Milz](https://beamilz.com/)
+- [Tom Mock](https://themockup.blog/)
 - [Albert Rapp](https://albert-rapp.de/) 
   - He also has an excellent guide for [creating a Quarto blog](https://albert-rapp.de/posts/13_quarto_blog_writing_guide/13_quarto_blog_writing_guide.html)
