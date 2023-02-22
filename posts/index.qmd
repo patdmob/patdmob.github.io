@@ -3,7 +3,7 @@
 title: "Posts"
 listing:
   - id: posts
-    contents: "*/index*"
+    contents: "*/index.qmd"
     sort: "date desc"
     type: default
     categories: true

@@ -3,7 +3,7 @@
 title: "Tutorials"
 listing:
   - id: tutorials
-    contents: "*/index*"
+    contents: "*/index.qmd"
     sort: "date desc"
     type: default
     categories: true
