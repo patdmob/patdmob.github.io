@@ -2,7 +2,7 @@
 title: "Book Reviews"
 listing:
   - id: books
-    contents: "*/index*"
+    contents: "*/index.qmd"
     sort: "date desc"
     type: table
     categories: true
