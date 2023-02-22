@@ -357,12 +357,14 @@ What does <code>nbdev_migrate</code> do?
 <li><code>./_quarto.yml</code>: update the social media links</li>
 </ul>
 <p>If you have <code>index</code> files with different extensions you can edit the list generator in your home page (<code>./index.qmd</code>) like this:</p>
-<pre><code>---
-listing:
-  - id: posts
-    contents: posts/*/index.*
-    ...</code></pre>
-<p>While, I did have some trouble with this wildcard usage, I believe it was due to caching issues due to keeping <code>quarto preview</code> running while I made these changes.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode yml code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Listing Example"</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">listing</span><span class="kw">:</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">contents</span><span class="kw">:</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="st">"reports/*.qmd"</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="st">"reports/*.md"</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="st">"lab-notes/*reports.ipynb"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>I’ve noticed that if you use the wildcard (<code>*</code>) for file extensions, then it causes issues when populating the lists. Specifically, in my case it counted draft posts and put them in blank cells within the list. It’s a good thing it is easy to specify different extension types as shown above.</p>
 <p>Once you get the website the way you like, you can publish your site by following the <a href="https://quarto.org/docs/publishing/">Publishing Basics</a> guide. I use <a href="https://quarto.org/docs/publishing/github-pages.html">GitHub Pages</a> so I used that option with the <code>quarto publish</code> command for publishing.</p>
 <p>Continue reading my journey of migrating to Quarto in my second post, <a href="../2023-02-18-makeing-a-quarto-website-fancy">Making a Quarto Website Fancy</a>, where I talk about improvements and customizations I have used to improve the website.</p>
 
