@@ -5,22 +5,21 @@ categories:
 - blogging
 - css
 - excalidraw
-date: '2023-02-18'
+date: '2023-02-25'
 description: a blog journey
 layout: post
 author: Patrick D. Mobley
 title: "Making a Quarto Website Fancy"
 toc: true
-image: quarto-2023-02-17.png
-draft: true
+image: quarto-fancy.png
 ---
 
-![](quarto-2023-02-17.png){width="30em" fig-align="center"}
+![](quarto-fancy.png){width="30em" fig-align="center"}
 
 Whether you're new to [Quarto](https://quarto.org/) or recently [migrated from Fastpages to Quarto](../2023-02-17-migrating-from-fastpages-to-quarto/), you might be wondering how to customize your new blog. While Quarto provides more flexibility and control over formatting and content, it can take some time to get familiar with the system and make it your own. 
 
 In this blog post, I will share some tips and tricks that I've discovered to help you customize your Quarto blog and improve its functionality and engagement.
-
+ 
 :::{.callout-note collapse=true}
 Most of this information is covered well within the Quarto [Guide](https://quarto.org/docs/guide/) or [Reference](https://quarto.org/docs/reference/) material. That said, in many cases I provide addition examples or screenshots. I also spent the time searching and organizing so that you can save time and get the information you need right here.
 :::
@@ -46,13 +45,28 @@ Check out the [Quarto documentation](https://quarto.org/docs/output-formats/html
 
 ### Adding top navigation to your website
 
-Adding different sections to your 
+Adding different sections is great for separating content into logical groups---making content more easily searchable. For instance, I post shorter, less instructional content into "Posts" and longer more educational content into "Tutorials". Later on I might make a "Talks" page for presentations I give, or a "Projects" page for running/hosted examples of my work. 
 
+Adding this top level navigation is really easy and well documented in the [guide](https://quarto.org/docs/websites/website-navigation.html#top-navigation). If you want to display multiple paginated lists on your landing page, you can edit these by [changing the listings layout](#changing-the-listings-layout). On my website, I did this to have multiple "Recent" listings in a grid layout to minimize scrolling to view content. 
+
+You can define this within the `_quarto.yml` file. Here is my top navigation yml within the **navbar** property:
+```yml
+    left:
+      - text: Home
+        href: index.qmd
+      - text: Posts
+        href: posts/index.qmd
+      - text: Tutorials
+        href: tutorials/index.qmd
+      - text: Book Reviews
+        href: books/index.qmd
+      - about.qmd
+```
 ### Social links
 
 You can add links to your social media sites within the Navbar and on any page (commonly the "About" page), or in the site footer. 
 
-To add links on your Navbar you just edit the `_quarto.yml` `navbar:` property like this:
+To add links on your Navbar you just edit the `_quarto.yml` **navbar** property like this:
 
 ```yml
   - icon: twitter
@@ -64,11 +78,33 @@ To add links on your Navbar you just edit the `_quarto.yml` `navbar:` property l
   - icon: envelope
     href: mailto:someones@gmail.com
 ```
-You can get more information about this by going to the [Navbar Tools](https://quarto.org/docs/prerelease/1.3/website-nav.html#navbar-tools), [about](https://quarto.org/docs/websites/website-about.html), or [page-footer](https://quarto.org/docs/websites/website-navigation.html#page-footer) documentation. 
+You can get more information about this by going to the [navbar tools](https://quarto.org/docs/prerelease/1.3/website-nav.html#navbar-tools), [about](https://quarto.org/docs/websites/website-about.html), or [page-footer](https://quarto.org/docs/websites/website-navigation.html#page-footer) documentation. 
 
-### Changing the layout
+### Changing the listings layout
 
-Because this is a blog, the content (post, article, tutorial, project, review, etc.) can be organized within different [listings](https://quarto.org/docs/websites/website-listings.html). 
+The content (post, article, tutorial, project, review, etc.) can be organized within different [listings](https://quarto.org/docs/websites/website-listings.html) on any page. There are three different listing types: default, table, and grid. To add listings to a page, you'll need to edit the yml and create a listing block where you want the list to render. 
+
+Here is an example of the a yml for my posts listing:
+```yml
+listing:
+  - id: posts
+    contents: "*/index.qmd"
+    sort: "date desc"
+    type: default
+    categories: true
+    sort-ui: false
+    filter-ui: false
+    fields: [image, date, title, reading-time, description]
+```
+
+To render the list, you'll need to include a reference with the id in the document:
+
+```md
+::: {#posts}
+:::
+```
+
+To get the "reading-time", I had to add `reading-time: true` to the `_metadata.yml` file within the current directory. Once there, if specified in the listings **field** property, it will show up on the site. 
 
 ### Embedding presentations
 
@@ -109,14 +145,34 @@ If you're looking for a presentation to inspire, check out the [Quarto Reporting
 
 ### Embedding videos
 
-Adding videos to your site is really easy as explained [here](https://quarto.org/docs/authoring/videos.html). Basically, you use the `{{{< video >}}}` shortcode. For example:
+Adding videos to your site is really easy as explained [here](https://quarto.org/docs/authoring/videos.html). Basically, you use the `{{{< video >}}}` shortcode on your page. For example:
 
 ``` {.markdown shortcodes="false"}
 {{< video https://www.youtube.com/embed/wo9vZccmqwc >}}
 ```
 
 ### Custom CSS buttons
-And of course if you want to customize anything, knowledge of web development will help you out. I added a "See All" button by the pagination page-links. 
+
+::::{.columns}
+:::{.column}
+And of course if you want to customize anything, knowledge of web development will help you out. I added a "See All" button by the pagination page-links using the following code:
+:::
+:::{.column}
+![](see-all.png){height="6em" fig-align="center"}
+:::
+::::
+
+```md
+## Recent Posts
+
+::: {#posts}
+:::
+
+<a href="../posts/index.html"> 
+  <button type="button" class="btn btn-primary float-end btn-sm">See all        
+  </button>
+</a>
+```
 
 Unfortunately, the button was mis-aligned with the pagination page-links so adding the following to the `styles.css` solve the problem. 
 
@@ -138,21 +194,28 @@ margin-top: -9px;
 ```
 
 
-![](see-all.png){height="8em" fig-align="center"}
-
-
-
 
 ### Favicon
-I used the free favicon generator: https://favicon.io/
+If you just want a simple favicon with your initials check out [favicon.io](https://favicon.io/). You can also upload images with your logo, and it will resize them appropriate for favicon use. To use, just create a reference (ex: `favicon: favicon-32x32.png`) to it within your `_quarto.yml` file under the **website** property. You can see more [here](https://quarto.org/docs/websites/website-tools.html#favicon). 
 
 ### Logo branding
 
-changing the navbar icon. I used [Excalidraw](https://excalidraw.com/) to create my website icon. 
+If you want, you can also use a logo instead of text on your website header. I used [Excalidraw](https://excalidraw.com/) to create my website icon and included it by changing the **navbar** property within the `_quarto.yml` file:
 
-![Navbar with title](navbar-with-title.png){height="9em" fig-align="center"}
+```yml
+  navbar:
+    logo: name.png
+    logo-alt: "somename"
+    title: false
+```
 
-![Navbar with logo](navbar-with-logo.png){height="12em" fig-align="center"}
+:::{layout-ncol="2" layout-valign="bottom"}
+![Navbar with title](navbar-with-title.png){height=8em" fig-align="center"}
+
+![Navbar with logo](navbar-with-logo.png){height=6em" fig-align="center"}
+:::
+
+Initially, the navbar logo was super tiny. So I had to adjust some css within the `styles.css` file:
 
 ```css
 .navbar-logo {
@@ -184,7 +247,7 @@ I followed the directions [here](https://quarto.org/docs/websites/website-naviga
   repo-actions: [issue] 
 ```
 
-The Github link only appears on pages that 
+The Github link only appears on pages that have a sidebar with a table of contents. 
 
 ### Comments
 
@@ -204,7 +267,7 @@ Instructions:
 
 4. Select a `Category`. Quarto recommends using the **Announcements** category in their [directions](https://quarto.org/docs/reference/projects/websites.html#comments). 
 
-5. Copy the script output into your `_quarto.yml` file within the `website` property name and strip the output of `data-`. It should look something like this:
+5. Copy the script output into your `_quarto.yml` file within the **website** property name and strip the output of `data-`. It should look something like this:
 
 ```yml
   comments:
