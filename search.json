@@ -63,6 +63,20 @@
     "text": "Conclusion\nThere are different ways to deploy data science models, and the choice of deployment method depends on the specific requirements of a project. The deployment method chosen must provide an optimal balance between cost, latency, and scalability. Personally, I have deployed using APIs, a messaging service, and batch processing. Have you deployed a data science model before? If so, what method did you use, and how did it work out for you? Let us know in the comments below."
   },
   {
+    "objectID": "posts/2023-02-25-making-a-quarto-website-fancy/index.html",
+    "href": "posts/2023-02-25-making-a-quarto-website-fancy/index.html",
+    "title": "Making a Quarto Website Fancy",
+    "section": "",
+    "text": "Whether you’re new to Quarto or recently migrated from Fastpages to Quarto, you might be wondering how to customize your new blog. While Quarto provides more flexibility and control over formatting and content, it can take some time to get familiar with the system and make it your own.\nIn this blog post, I will share some tips and tricks that I’ve discovered to help you customize your Quarto blog and improve its functionality and engagement."
+  },
+  {
+    "objectID": "posts/2023-02-25-making-a-quarto-website-fancy/index.html#inspiration",
+    "href": "posts/2023-02-25-making-a-quarto-website-fancy/index.html#inspiration",
+    "title": "Making a Quarto Website Fancy",
+    "section": "Inspiration",
+    "text": "Inspiration\nHere are a few Quarto blogs which have inspired me. I hope they can inspire you too!\n\nSalman Naqvi\nMike Mahoney\nBea Milz\nTom Mock\nAlbert Rapp\n\nHe also has an excellent guide for creating a Quarto blog"
+  },
+  {
     "objectID": "posts/2018-12-15-Taking-a-bat-to-scripts/index.html",
     "href": "posts/2018-12-15-Taking-a-bat-to-scripts/index.html",
     "title": "Taking a .bat to scripts",

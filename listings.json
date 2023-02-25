@@ -2,6 +2,7 @@
   {
     "listing": "/posts/index.html",
     "items": [
+      "/posts/2023-02-25-making-a-quarto-website-fancy/index.html",
       "/posts/2023-02-17-migrating-from-fastpages-to-quarto/index.html",
       "/posts/2022-06-12-how-are-machine-learning-models-deployed/index.html",
       "/posts/2021-05-30-getting-started-with-julia-in-vscode/index.html",
@@ -19,6 +20,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/2023-02-25-making-a-quarto-website-fancy/index.html",
       "/posts/2023-02-17-migrating-from-fastpages-to-quarto/index.html",
       "/posts/2022-06-12-how-are-machine-learning-models-deployed/index.html",
       "/posts/2021-05-30-getting-started-with-julia-in-vscode/index.html",
