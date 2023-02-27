@@ -1,0 +1,38 @@
+---
+categories:
+- book review
+- business
+- non-fiction
+- professional development
+- strategy
+- startup
+- management
+- leadership
+date: '2022-07-24'
+rating: ⭐⭐⭐
+layout: post
+author: Patrick D. Mobley
+title: "Review of The Hard Thing About Hard Things"
+toc: true
+image: hard-things.jpg
+---
+
+![](hard-things.jpg){width=12em fig-align="center"}
+
+
+The book, "The Hard Thing About Hard Things," chronicles the journey of Ben Horowitz, a successful entrepreneur, venture capitalist, and co-founder of Andreessen Horowitz. It offers a firsthand account of the struggles he faced while running a startup, including raising capital, selling the company, and managing employees. I had mixed feelings about the book---at times, the book is very insightful but it can also be off-putting. After browsing Amazon reviews, I noticed that people either love or hate this book, and I can understand why.
+
+Horowitz provides advice on how to navigate the challenges that come with running a business, such as creating a strong company culture, hiring and firing, and leading through uncertainty. But, often the book felt arrogant or braggy, without providing real depth. Many of his stories have examples of how he utilized his network to help solve the problem, but it would have been great to get more actionable advice on how he created those connections in the first place. 
+
+In fact, the book makes little attempt to empathize with non-executive readers. While motivational for C-Suite executives, for most people the advice extends little beyond offering insights into executive thought processes. I felt concerned that perhaps I was alone in my critiques, but many other Amazon reviewers also felt so as well. I, like others, found myself putting it down at 50%, then at 80%, forging on yet still feeling mixed. And while it was not an issue for me, some readers may find the author's writing style and language too casual or even offensive at times. 
+
+Now, there were good parts. I particularly liked the "Ones and Twos" section where he compares two types of executives. One's like making decisions and two's like to keep things running. The reason I found it insightful is because he argues that successful CEOs and executives have learned to have characteristics of both. His "wartime vs peacetime" CEO analogy was also useful and reminded me of my military analysis courses while at the Air Force Academy. Basically, the best leaders for winning the war, rarely make the best leaders to rebuild. 
+
+In business, peacetime CEOs work to expand the existing market, whereas wartime CEOs fight to define the market. An example of a peacetime CEO might be John Chambers and for wartime Steve Jobs. He noted that often management books are written for peacetime CEOs with the only exception he found was for Andy Grove's book "Only the Paranoid Survive". He makes other good recommendations such as "Built to Last", "High Output Management", and "Good to Great" and explores some of the ideas in these books. 
+
+He also touches on a menagerie of topics from improving one-on-ones to scaling a company. They are good topics. I can't decide if he devotes too little time to them or if they are just too obvious to say more. In this vein are topics like holding employees accountable, avoiding what he calls the *scale anticipation fallacy*, when to hire senior employees--all good topics for new founders or CEOs. 
+
+Whether or not you should read this book depends on your individual needs and preferences. While the book has its strengths, to me it falls short of being an essential business book. The advice provided is not actionable for most readers, but does provide additional perspectives of business. If you are a C-Suite executive looking for insight into the thought process of others in your position, you may benefit from this book. Otherwise, I would recommend exploring other business guides that offer more actionable advice.
+
+
+Rating: ⭐⭐⭐
