@@ -9,16 +9,16 @@ date: '2023-02-25'
 description: a blog journey
 layout: post
 author: Patrick D. Mobley
-title: "Making a Quarto Website Fancy"
+title: "Customizing Your Quarto Website"
 toc: true
 image: quarto-fancy.png
 ---
 
 ![](quarto-fancy.png){width="30em" fig-align="center"}
 
-Whether you're new to [Quarto](https://quarto.org/) or recently [migrated from Fastpages to Quarto](../2023-02-17-migrating-from-fastpages-to-quarto/), you might be wondering how to customize your new blog. While Quarto provides more flexibility and control over formatting and content, it can take some time to get familiar with the system and make it your own. 
+Whether you're new to [Quarto](https://quarto.org/) or recently [migrated from Fastpages to Quarto](../2023-02-17-migrating-from-fastpages-to-quarto/), you might be wondering how to customize your new Quarto website. While Quarto provides more flexibility and control over formatting and content, it can take some time to get familiar with the system and make it your own. 
 
-In this blog post, I will share some tips and tricks that I've discovered to help you customize your Quarto blog and improve its functionality and engagement.
+In this blog post, I will share some tips and tricks that I've discovered to help you customize your Quarto website and improve its functionality and engagement.
  
 :::{.callout-note collapse=true}
 Most of this information is covered well within the Quarto [Guide](https://quarto.org/docs/guide/) or [Reference](https://quarto.org/docs/reference/) material. That said, in many cases I provide addition examples or screenshots. I also spent the time searching and organizing so that you can save time and get the information you need right here.
@@ -49,7 +49,7 @@ Adding different sections is great for separating content into logical groups---
 
 Adding this top level navigation is really easy and well documented in the [guide](https://quarto.org/docs/websites/website-navigation.html#top-navigation). If you want to display multiple paginated lists on your landing page, you can edit these by [changing the listings layout](#changing-the-listings-layout). On my website, I did this to have multiple "Recent" listings in a grid layout to minimize scrolling to view content. 
 
-You can define this within the `_quarto.yml` file. Here is my top navigation yml within the **navbar** property:
+You can define this within the `_quarto.yml` file. Here is my top navigation yml within the *navbar* property:
 ```yml
     left:
       - text: Home
@@ -66,7 +66,7 @@ You can define this within the `_quarto.yml` file. Here is my top navigation yml
 
 You can add links to your social media sites within the Navbar and on any page (commonly the "About" page), or in the site footer. 
 
-To add links on your Navbar you just edit the `_quarto.yml` **navbar** property like this:
+To add links on your Navbar you just edit the `_quarto.yml` *navbar* property like this:
 
 ```yml
   - icon: twitter
@@ -82,13 +82,16 @@ You can get more information about this by going to the [navbar tools](https://q
 
 ### Changing the listings layout
 
-The content (post, article, tutorial, project, review, etc.) can be organized within different [listings](https://quarto.org/docs/websites/website-listings.html) on any page. There are three different listing types: default, table, and grid. To add listings to a page, you'll need to edit the yml and create a listing block where you want the list to render. 
+The content (post, article, tutorial, project, review, etc.) can be organized within different [listings](https://quarto.org/docs/websites/website-listings.html) on any page. There are three different listing types: default, table, and grid. You might want to change the type for various reasons. For instance, I used a grid type on my [Home](../../) page to decrease mouse scrolling and showcase more of my work in a standard monitor. On my [Book Reviews](../../books/) page, I used a table type to fit more posts on the page.  
 
-Here is an example of the a yml for my posts listing:
+To add listings to a page, you'll need to edit the yml and create a listing block where you want the list to render. Here is an example of the a yml for my posts listing:
 ```yml
 listing:
   - id: posts
-    contents: "*/index.qmd"
+    contents: 
+      - "*/index.qmd"
+      - "*/index.md"
+      - "*/index.ipynb"
     sort: "date desc"
     type: default
     categories: true
@@ -97,14 +100,14 @@ listing:
     fields: [image, date, title, reading-time, description]
 ```
 
-To render the list, you'll need to include a reference with the id in the document:
+To include multiple file types, you can include a list within the *contents* property. I would not use wildcards (*) to define multiple file types since I have noticed that they interfere with the listings when publishing the website. To render the list, you'll need to include a reference with the id in the document:
 
 ```md
 ::: {#posts}
 :::
 ```
 
-To get the "reading-time", I had to add `reading-time: true` to the `_metadata.yml` file within the current directory. Once there, if specified in the listings **field** property, it will show up on the site. 
+To get the "reading-time", I had to add `reading-time: true` to the `_metadata.yml` file within the current directory. Once there, if specified in the listings *field* property, it will show up on the site. 
 
 ### Embedding presentations
 
@@ -196,11 +199,11 @@ margin-top: -9px;
 
 
 ### Favicon
-If you just want a simple favicon with your initials check out [favicon.io](https://favicon.io/). You can also upload images with your logo, and it will resize them appropriate for favicon use. To use, just create a reference (ex: `favicon: favicon-32x32.png`) to it within your `_quarto.yml` file under the **website** property. You can see more [here](https://quarto.org/docs/websites/website-tools.html#favicon). 
+If you just want a simple favicon with your initials check out [favicon.io](https://favicon.io/). You can also upload images with your logo, and it will resize them appropriate for favicon use. To use, just create a reference (ex: `favicon: favicon-32x32.png`) to it within your `_quarto.yml` file under the *website* property. You can see more [here](https://quarto.org/docs/websites/website-tools.html#favicon). 
 
 ### Logo branding
 
-If you want, you can also use a logo instead of text on your website header. I used [Excalidraw](https://excalidraw.com/) to create my website icon and included it by changing the **navbar** property within the `_quarto.yml` file:
+If you want, you can also use a logo instead of text on your website header. I used [Excalidraw](https://excalidraw.com/) to create my website icon and included it by changing the *navbar* property within the `_quarto.yml` file:
 
 ```yml
   navbar:
@@ -265,9 +268,9 @@ Instructions:
 
 |       Entering your `username/repo` here will populate the `repo-id` and other fields after selecting the your preferred options. 
 
-4. Select a `Category`. Quarto recommends using the **Announcements** category in their [directions](https://quarto.org/docs/reference/projects/websites.html#comments). 
+4. Select a `Category`. Quarto recommends using the *Announcements* category in their [directions](https://quarto.org/docs/reference/projects/websites.html#comments). 
 
-5. Copy the script output into your `_quarto.yml` file within the **website** property name and strip the output of `data-`. It should look something like this:
+5. Copy the script output into your `_quarto.yml` file within the *website* property name and strip the output of `data-`. It should look something like this:
 
 ```yml
   comments:
@@ -301,7 +304,7 @@ This is a really neat feature likely hailing from the C programming language. Ba
 
 I've used this feature a lot when making Rmarkdown reports in the past. It's really useful to apply the DRY (Don't Repeat Yourself) of programming. So in a multi-post blog series, I could use the same starter code to load the data to for charts and tables within qmd files. 
 
-Another use case is for different document formats. For instance, you want to make a presentation and a post of the same content. Rather than storing the code in two places, you could store the code in these  **include** files. When you need to update the code, the changes automatically update for both formats. While you might have more files, you'll have fewer places to update code, leading to fewer corrections and potential mistakes. 
+Another use case is for different document formats. For instance, you want to make a presentation and a post of the same content. Rather than storing the code in two places, you could store the code in these  *include* files. When you need to update the code, the changes automatically update for both formats. While you might have more files, you'll have fewer places to update code, leading to fewer corrections and potential mistakes. 
 
 To include a file, add the `{{{< include >}}}` shortcode at the location in your document where you want it included. Here's an example of including the `_content.qmd` file within the document:
 
@@ -309,7 +312,7 @@ To include a file, add the `{{{< include >}}}` shortcode at the location in your
 {{< include _content.qmd >}}
 ```
 
-For more information about the **include** feature in Quarto checkout of the [include documentation](https://quarto.org/docs/authoring/includes.html). 
+For more information about the *include* feature in Quarto checkout of the [include documentation](https://quarto.org/docs/authoring/includes.html). 
 
 ## Inspiration
 

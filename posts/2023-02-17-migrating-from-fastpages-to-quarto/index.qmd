@@ -120,4 +120,4 @@ I've noticed that if you use the wildcard (`*`) for file extensions, then it cau
 
 Once you get the website the way you like, you can publish your site by following the [Publishing Basics](https://quarto.org/docs/publishing/) guide. I use [GitHub Pages](https://quarto.org/docs/publishing/github-pages.html) so I used that option with the `quarto publish` command for publishing. 
 
-Continue reading my journey of migrating to Quarto in my second post, [Making a Quarto Website Fancy](../2023-02-25-making-a-quarto-website-fancy), where I talk about improvements and customizations I have used to improve the website. 
+Continue reading my journey of migrating to Quarto in my second post, [Customizing Your Quarto Website](../2023-02-25-customizing-your-quarto-website), where I talk about improvements and customizations I have used to improve the website. 
