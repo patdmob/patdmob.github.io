@@ -36,6 +36,6 @@ The book also covers the importance of focusing on the right metrics and key per
 
 But even for those who don't work in data science, the insights offered by *The Lean Startup* are valuable. The book's emphasis on creating a culture of experimentation and continuous improvement can be applied to any business or organization. Ries provides practical strategies for developing and testing ideas, and for pivoting when necessary in order to find the right product-market fit.
 
-Overall, "The Lean Startup" is an important book for anyone interested in entrepreneurship or innovation. It offers a practical business approach for creating and improving products that meet the needs of customers. Whether you work in data science or any other field, this book is a must-read for anyone looking to succeed in the world of business.
+Overall, *The Lean Startup* is an important book for anyone interested in entrepreneurship or innovation. It offers a practical business approach for creating and improving products that meet the needs of customers. Whether you work in data science or any other field, this book is a must-read for anyone looking to succeed in the world of business.
 
 Rating: ⭐⭐⭐⭐⭐
