@@ -1,0 +1,77 @@
+---
+categories:
+- blog
+- success
+- credibility
+- people
+- school
+- experience
+date: '2023-03-03'
+description: how to shape your credibility in a changing age
+layout: post
+author: Patrick D. Mobley
+title: "Building Credibility: The Key to Success"
+toc: true
+image: felipe-giacometti-W1OQnzpk3ZE-unsplash.jpg
+
+---
+
+![](felipe-giacometti-W1OQnzpk3ZE-unsplash.jpg)
+
+Establishing credibility is crucial in achieving our goals, whether it's getting a job, launching a successful business, or becoming an influencer. It's the foundation that builds trust and confidence, which can make or break our success. However, establishing credibility can be a challenging task, especially when we lack relevant job experience or formal qualifications. 
+
+When I got out of the military and started applying for jobs, I realized I likely wouldn't get the job in data science I wanted. I didn't have job experience even though I had a Masters degree. I wasn't sure if I should go back to school and get a PhD, or get a transition job to get some experience. During this time, I thought a lot about Credibility. 
+
+In this blog post, we will explore the concept of credibility and its three essential elements: *experience*, *credentials*, and *social backing*. We'll look at how each element plays a crucial role in building credibility and how they work together to establish trust and confidence in our abilities. Whether you're just starting your career or looking to make a pivot, this post will provide you with valuable insights and practical tips to help you build credibility and achieve your goals.
+ 
+## Experience
+> "I have a track record of success. I've done this for a long time and seen it all."
+
+*Experience* is one of the key elements of credibility. It shows we can do the work because we have done it before. However, gaining relevant *experience* can be a challenging task, especially when starting in a new career field.
+
+When I was looking for a job in data science, I had no experience in the field, and this made it challenging to get my foot in the door. However, I did not let this discourage me. Instead, I started working on small projects, volunteered my skills to various organizations, and joined relevant communities. These experiences not only helped me gain new skills and knowledge but also gave me the confidence to showcase my abilities to potential employers.
+
+If you're looking to build your *experience*, there are many ways to do so. Consider taking on side projects, freelancing, or volunteering for organizations that align with your goals. Participating in hackathons, online courses, and industry events are also great ways to gain hands-on experience and network with professionals in your field. By building your *experience*, you'll gain valuable insights into the industry and show potential employers that you have the skills and expertise they're looking for.
+
+## Credentials
+> "I have certificates, certifications, degrees, etc. that prove I know what I'm talking about."
+
+*Credentials* play a significant role in establishing credibility as they demonstrate your knowledge and expertise in a particular field. Formal qualifications such as degrees and certifications are often relied upon by people to establish their credibility. However, having such *credentials* is not always necessary, and sometimes it may not be enough. It's essential to recognize that *credentials* are just one part of the equation, and they must be combined with other elements of credibility to establish a strong reputation.
+
+In my personal experience, I struggled with the best way to improve my *credentials*. Before getting a job, I had to decide whether to leverage my master's, get additional certifications, or go back to school for a PhD. In the end, I chose to take online supplemental courses and build up my skills through personal projects. Your situation might be different, but you may encounter similar decisions on your journey towards your goals.
+
+Moreover, it's worth noting that *credentials* are not limited to formal education alone. Training programs and even personal projects can all count as *credentials*. The key is to identify the *credentials* that are most relevant to your goals and showcase them effectively. 
+
+
+## Social Backing
+> "People recognize me as an expert. And I am an expert because otherwise, people wouldn't recognize me."
+
+*Social backing* is the third and final element of credibility. It refers to the recognition and support a person receives from their community, peers, and followers. *social backing* has always been an essential element of credibility, however in our increasingly digital age, technology amplifies outreach and impact echos like never before. So in today's modern world, where social media has a significant influence on people's lives, *social backing* plays a crucial role in establishing credibility.
+
+*Social backing* is community-driven and self-fulfilling to a degree. People tend to listen to those who have a significant following or are recognized as experts in their field. For instance, an influencer with a massive following on social media can quickly establish credibility and influence their followers' opinions and decisions.
+
+Building *social backing* takes time and effort, but it can be a rewarding experience. Attending meetups, volunteering to give talks, writing tutorials, and posting blog articles can help in establishing *social backing*. Networking on LinkedIn and in-person can also help in building a community of like-minded people who recognize your expertise and support you in your endeavors.
+
+Personally, I have found that building *social backing* is a continuous process. It requires consistent effort to stay engaged with the community and build relationships with peers and followers. I have not always done this well and still have lots to learn. In my experience, contributing to online forums and groups, participating in social media conversations, and collaborating with others on projects can help in establishing *social backing*.
+
+## The Interplay of the Three Elements
+
+The three elements of credibility, *experience*, *credentials*, and *social backing*, do not exist in isolation. They interact with each other in complex ways to create a strong foundation of credibility.
+
+For instance, someone with extensive *experience* in a field may be awarded an honorary degree, which adds to their *credentials* and further enhances their *social backing*. Conversely, someone with strong *social backing* may be able to leverage their connections to gain valuable work *experience*, which in turn enhances their credibility. Famous scientists like Neil deGrasse Tyson started with a lot of *experience* and *credentials* but now have a lot of *social backing* too!
+
+Personal projects can also serve as a bridge between the different elements of credibility. For example, a data scientist with no formal *credentials* but extensive *experience* in the field may build a personal project that showcases their skills and knowledge. This project can then be used to demonstrate their *credentials* and enhance their *social backing*.
+
+It's important to understand the interplay between these three elements of credibility and use them to your advantage. This can involve identifying areas where you need to improve your credibility and then taking concrete steps to address them. It may also involve identifying areas where you have strengths and leveraging them to enhance your credibility even further.
+
+*Ultimately, it is the interplay between experience, credentials, and social backing that establishes credibility and creates opportunities for personal and professional growth.* Understanding how these elements work together can help you take your career to the next level and achieve your goals.
+
+## Credibility
+
+In conclusion, credibility is an essential factor in establishing a successful career, business, or personal brand. While *experience*, *credentials*, and *social backing* are the three main elements of credibility, the interplay between them is what ultimately determines one's level of credibility.
+
+Through personal anecdotes, we have seen that one can gain credibility in many ways. Whether you are starting out in a new field, looking to advance in your career, or seeking to establish yourself as an expert, developing a strong foundation of credibility is critical.
+
+By combining *experience*, *credentials*, and *social backing* in strategic ways, you can establish yourself as a credible authority in your field. Remember that credibility is not just about what you know, but also how you present yourself and your work. Be intentional in your actions, and always strive to build a strong reputation based on trust, respect, and expertise.
+
+So, if you're looking to establish yourself as a credible authority, start by focusing on these three elements and find ways to showcase your knowledge, skills, and achievements. You will find that you can build a strong foundation of credibility that will help you achieve your goals and succeed in your chosen field.
