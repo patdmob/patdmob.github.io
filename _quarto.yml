@@ -8,6 +8,8 @@ website:
   repo-actions: [issue]
   cookie-consent:
     style: headline
+  page-footer: 
+    left: "Copyright © 2022, Patrick D. Mobley" 
   google-analytics:
     tracking-id: UA-122946005-1
     anonymize-ip: true
