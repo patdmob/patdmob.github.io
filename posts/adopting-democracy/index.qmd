@@ -1,0 +1,72 @@
+---
+categories:
+- blog
+- opinion
+- democracy
+- education
+- trust
+- equality
+- freedom
+- innovation
+date: '2023-xx-xx'
+description: how to ensure we continue to live in a democracy
+layout: post
+author: Patrick D. Mobley
+title: "Adopting Democracy"
+toc: true
+# image: 
+draft: true
+---
+
+Perhaps turn this into a series. 
+
+The narrative is confused in America: socialism vs democracy exist on two different planes of existence (ref needed). 
+
+The axis of political ideology: economic vs social freedoms
+    - freedom of religion is a social freedom
+    - so is gun ownership
+    - rights to abortion
+    - freedom of speech
+    - and gay marriage are too
+
+
+social freedoms are often judged by their impact on safety. guns are dangerous, but religion is not. Where this get's confusing is that ideas can be dangerous. 
+
+economic freedoms are instead judged by their impact on fairness. 
+
+is there a third axis? 
+
+Let's establish that total freedom is not what we want, because freedom without any checks or balances result in anarchy. Ironically, when people are free to do whatever they want, society becomes less free. This happens because nothing prevents someone encroaching on my freedoms. People could murder or steal without any reprisal, so long as they have a big enough stick. The strong, the wealthy, the influential, rule over those without. 
+
+We also don't want the lack of freedom
+
+the "U" curve of freedom
+
+
+
+Adopting Democracy
+	
+Part I
+Education
+	Democracy works in part because you have an educated body from which elects representatives and votes on various topics of law. It follows from this logic that some minimum level of education is required for a working government. 
+	It could be argued that the minimum level of education is dependent on the governmental system itself. For example, many Americans can only do their own taxes with the aid of software programs or accountants. This is not always been the case. When the tax laws were more simple, a relatively educated individual could do their own taxes with ease. However as the laws have become more complicated, more specialized knowledge is required in order to get an appropriate tax return.
+	Likewise, in the Middle East specifically Afghanistan, the literacy rate is quite low. How then can a society function using more complicated modern systems and effectively vote in the presence of corruption and other barriers to entry. 
+
+Part II
+Moral Equality
+	Equality is a touchy subject in America however historically the meaning was much different. The current definition of equality has morphed from… 
+
+Part III
+Trust
+	Modern democracy works because trust exists between parties. In this trust breaks down…
+
+    It's well known that distrust between the parties is at an all time high.
+
+Part IV
+Other topics
+	Freedom - What is it? Exactly what am I fighting for? 
+	 Code - Re-introducing authority to make decisions where it belongs
+		 http://www.ted.com/talks/philip_howard.html
+	Patent/Copy write Law - Why we should abolish it. 
+		http://www.ted.com/talks/johanna_blakley_lessons_from_fashion_s_free_culture.html		
+	re-emergence of common sense

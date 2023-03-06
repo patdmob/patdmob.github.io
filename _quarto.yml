@@ -11,7 +11,7 @@ website:
   page-footer: 
     left: "Copyright © 2022, Patrick D. Mobley" 
   google-analytics:
-    tracking-id: UA-122946005-1
+    tracking-id: G-JR92K4JDBK
     anonymize-ip: true
   favicon: favicon-32x32.png 
   navbar:
