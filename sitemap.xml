@@ -2,78 +2,82 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://patdmob.github.io/posts/2022-06-12-how-are-machine-learning-models-deployed/index.html</loc>
-    <lastmod>2023-03-06T20:46:21.901Z</lastmod>
+    <lastmod>2023-03-08T14:50:43.951Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/posts/index.html</loc>
-    <lastmod>2023-03-06T20:46:22.321Z</lastmod>
+    <lastmod>2023-03-08T14:50:44.272Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/posts/2018-12-15-Taking-a-bat-to-scripts/index.html</loc>
-    <lastmod>2023-03-06T20:46:22.837Z</lastmod>
+    <lastmod>2023-03-08T14:50:44.759Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/posts/2021-05-30-getting-started-with-julia-in-vscode/index.html</loc>
-    <lastmod>2023-03-06T20:46:23.121Z</lastmod>
+    <lastmod>2023-03-08T14:50:45.034Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/posts/2023-02-25-customizing-your-quarto-website/index.html</loc>
-    <lastmod>2023-03-06T20:46:23.971Z</lastmod>
+    <lastmod>2023-03-08T14:50:45.888Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/posts/2023-02-17-migrating-from-fastpages-to-quarto/index.html</loc>
-    <lastmod>2023-03-06T20:46:24.458Z</lastmod>
+    <lastmod>2023-03-08T14:50:46.365Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/posts/2023-03-03-building-credibility/index.html</loc>
-    <lastmod>2023-03-06T20:46:24.779Z</lastmod>
+    <lastmod>2023-03-08T14:50:46.685Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/books/2023-02-21-working-backwards/index.html</loc>
-    <lastmod>2023-03-06T20:46:25.045Z</lastmod>
+    <lastmod>2023-03-08T14:50:46.954Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/books/2022-07-24-the-hard-thing-about-hard-things/index.html</loc>
-    <lastmod>2023-03-06T20:46:25.317Z</lastmod>
+    <lastmod>2023-03-08T14:50:47.226Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/books/2023-01-12-flawless-consulting/index.html</loc>
-    <lastmod>2023-03-06T20:46:25.571Z</lastmod>
+    <lastmod>2023-03-08T14:50:47.484Z</lastmod>
+  </url>
+  <url>
+    <loc>https://patdmob.github.io/books/2023-01-30-of-boys-and-men/index.html</loc>
+    <lastmod>2023-03-08T14:50:47.815Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/books/index.html</loc>
-    <lastmod>2023-03-06T20:46:26.142Z</lastmod>
+    <lastmod>2023-03-08T14:50:48.113Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/books/2022-05-03-swipe-to-unlock/index.html</loc>
-    <lastmod>2023-03-06T20:46:26.396Z</lastmod>
+    <lastmod>2023-03-08T14:50:48.365Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/books/2022-02-15-lean-startup/index.html</loc>
-    <lastmod>2023-03-06T20:46:26.680Z</lastmod>
+    <lastmod>2023-03-08T14:50:48.624Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/index.html</loc>
-    <lastmod>2023-03-06T20:46:27.106Z</lastmod>
+    <lastmod>2023-03-08T14:50:49.057Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/about.html</loc>
-    <lastmod>2023-03-06T20:46:27.350Z</lastmod>
+    <lastmod>2023-03-08T14:50:49.311Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/tutorials/2018-05-15-Imbalanced-Classification-with-mlr/index.html</loc>
-    <lastmod>2023-03-06T20:46:27.893Z</lastmod>
+    <lastmod>2023-03-08T14:50:49.840Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/tutorials/index.html</loc>
-    <lastmod>2023-03-06T20:46:28.162Z</lastmod>
+    <lastmod>2023-03-08T14:50:50.111Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/tutorials/2018-07-15-Missing-Data-Modeled/index.html</loc>
-    <lastmod>2023-03-06T20:46:28.745Z</lastmod>
+    <lastmod>2023-03-08T14:50:50.665Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/tutorials/2018-05-16-Vanilla-vs-SMOTE/index.html</loc>
-    <lastmod>2023-03-06T20:46:29.376Z</lastmod>
+    <lastmod>2023-03-08T14:50:51.307Z</lastmod>
   </url>
 </urlset>
