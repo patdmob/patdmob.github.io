@@ -2,86 +2,86 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://patdmob.github.io/posts/2022-06-12-how-are-machine-learning-models-deployed/index.html</loc>
-    <lastmod>2023-03-30T14:57:23.639Z</lastmod>
+    <lastmod>2023-03-30T15:04:35.204Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/posts/index.html</loc>
-    <lastmod>2023-03-30T14:57:23.964Z</lastmod>
+    <lastmod>2023-03-30T15:04:35.563Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/posts/2018-12-15-Taking-a-bat-to-scripts/index.html</loc>
-    <lastmod>2023-03-30T14:57:24.473Z</lastmod>
+    <lastmod>2023-03-30T15:04:36.053Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/posts/2021-05-30-getting-started-with-julia-in-vscode/index.html</loc>
-    <lastmod>2023-03-30T14:57:24.797Z</lastmod>
+    <lastmod>2023-03-30T15:04:36.357Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/posts/2023-02-25-customizing-your-quarto-website/index.html</loc>
-    <lastmod>2023-03-30T14:57:25.675Z</lastmod>
+    <lastmod>2023-03-30T15:04:37.216Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/posts/2023-02-17-migrating-from-fastpages-to-quarto/index.html</loc>
-    <lastmod>2023-03-30T14:57:26.147Z</lastmod>
+    <lastmod>2023-03-30T15:04:37.682Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/posts/2023-03-03-building-credibility/index.html</loc>
-    <lastmod>2023-03-30T14:57:26.469Z</lastmod>
+    <lastmod>2023-03-30T15:04:38.006Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/books/2023-02-21-working-backwards/index.html</loc>
-    <lastmod>2023-03-30T14:57:26.741Z</lastmod>
+    <lastmod>2023-03-30T15:04:38.277Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/books/2022-07-24-the-hard-thing-about-hard-things/index.html</loc>
-    <lastmod>2023-03-30T14:57:27.012Z</lastmod>
+    <lastmod>2023-03-30T15:04:38.545Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/books/2023-01-12-flawless-consulting/index.html</loc>
-    <lastmod>2023-03-30T14:57:27.268Z</lastmod>
+    <lastmod>2023-03-30T15:04:38.803Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/books/2023-03-30-fundamentals-of-data-engineering/index.html</loc>
-    <lastmod>2023-03-30T14:57:27.575Z</lastmod>
+    <lastmod>2023-03-30T15:04:39.098Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/books/2023-01-30-of-boys-and-men/index.html</loc>
-    <lastmod>2023-03-30T14:57:27.900Z</lastmod>
+    <lastmod>2023-03-30T15:04:39.413Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/books/index.html</loc>
-    <lastmod>2023-03-30T14:57:28.217Z</lastmod>
+    <lastmod>2023-03-30T15:04:39.720Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/books/2022-05-03-swipe-to-unlock/index.html</loc>
-    <lastmod>2023-03-30T14:57:28.502Z</lastmod>
+    <lastmod>2023-03-30T15:04:39.983Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/books/2022-02-15-lean-startup/index.html</loc>
-    <lastmod>2023-03-30T14:57:28.781Z</lastmod>
+    <lastmod>2023-03-30T15:04:40.261Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/index.html</loc>
-    <lastmod>2023-03-30T14:57:29.215Z</lastmod>
+    <lastmod>2023-03-30T15:04:40.711Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/about.html</loc>
-    <lastmod>2023-03-30T14:57:29.459Z</lastmod>
+    <lastmod>2023-03-30T15:04:40.948Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/tutorials/2018-05-15-Imbalanced-Classification-with-mlr/index.html</loc>
-    <lastmod>2023-03-30T14:57:30.028Z</lastmod>
+    <lastmod>2023-03-30T15:04:41.487Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/tutorials/index.html</loc>
-    <lastmod>2023-03-30T14:57:30.307Z</lastmod>
+    <lastmod>2023-03-30T15:04:41.764Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/tutorials/2018-07-15-Missing-Data-Modeled/index.html</loc>
-    <lastmod>2023-03-30T14:57:30.887Z</lastmod>
+    <lastmod>2023-03-30T15:04:42.343Z</lastmod>
   </url>
   <url>
     <loc>https://patdmob.github.io/tutorials/2018-05-16-Vanilla-vs-SMOTE/index.html</loc>
-    <lastmod>2023-03-30T14:57:31.518Z</lastmod>
+    <lastmod>2023-03-30T15:04:42.965Z</lastmod>
   </url>
 </urlset>
