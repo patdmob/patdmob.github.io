@@ -4,7 +4,12 @@ categories:
 - non-fiction
 - professional development
 - data engineering
-- 
+- data architecture
+- data generation
+- data storage
+- data ingestion
+- data transformation
+- data serving
 date: '2023-03-30'
 rating: ⭐⭐⭐⭐
 layout: post
