@@ -13,6 +13,7 @@
   {
     "listing": "/books/index.html",
     "items": [
+      "/books/2023-03-30-fundamentals-of-data-engineering/index.html",
       "/books/2023-02-21-working-backwards/index.html",
       "/books/2023-01-30-of-boys-and-men/index.html",
       "/books/2023-01-12-flawless-consulting/index.html",
@@ -33,6 +34,7 @@
       "/tutorials/2018-07-15-Missing-Data-Modeled/index.html",
       "/tutorials/2018-05-16-Vanilla-vs-SMOTE/index.html",
       "/tutorials/2018-05-15-Imbalanced-Classification-with-mlr/index.html",
+      "/books/2023-03-30-fundamentals-of-data-engineering/index.html",
       "/books/2023-02-21-working-backwards/index.html",
       "/books/2023-01-30-of-boys-and-men/index.html",
       "/books/2023-01-12-flawless-consulting/index.html",
